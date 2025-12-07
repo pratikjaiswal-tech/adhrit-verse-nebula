@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { PricingCard } from '@/components/cards/PricingCard';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { Check, HelpCircle } from 'lucide-react';
+import { Check, ChevronDown } from 'lucide-react';
 
 const pricingPlans = [
   {
@@ -97,7 +97,8 @@ const Pricing = () => {
     <main className="pt-24">
       {/* Hero */}
       <section className="section-padding relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-radial pointer-events-none" />
+        <div className="absolute inset-0 cyber-grid opacity-20 pointer-events-none" />
         
         <div className="container-custom relative">
           <SectionHeading
@@ -108,19 +109,19 @@ const Pricing = () => {
 
           {/* Toggle */}
           <div className="flex justify-center mb-16">
-            <div className="glass-card p-1.5 inline-flex gap-1">
+            <div className="cyber-card p-1.5 inline-flex gap-1 border-accent/20">
               <button
                 onClick={() => setIsYearly(false)}
-                className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                  !isYearly ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
+                className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
+                  !isYearly ? 'bg-gradient-to-r from-primary to-secondary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 Monthly Billing
               </button>
               <button
                 onClick={() => setIsYearly(true)}
-                className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                  isYearly ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
+                className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
+                  isYearly ? 'bg-gradient-to-r from-primary to-secondary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 Yearly Billing
@@ -155,29 +156,29 @@ const Pricing = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="glass-card overflow-hidden"
+            className="cyber-card overflow-hidden border-accent/15"
           >
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-border">
-                    <th className="text-left p-6 font-heading font-semibold">Feature</th>
-                    <th className="text-center p-6 font-heading font-semibold">Starter</th>
+                    <th className="text-left p-6 font-heading font-semibold text-foreground">Feature</th>
+                    <th className="text-center p-6 font-heading font-semibold text-foreground">Starter</th>
                     <th className="text-center p-6 font-heading font-semibold text-primary">Growth</th>
-                    <th className="text-center p-6 font-heading font-semibold">Enterprise</th>
+                    <th className="text-center p-6 font-heading font-semibold text-foreground">Enterprise</th>
                   </tr>
                 </thead>
                 <tbody>
                   {comparisonFeatures.map((feature, index) => (
                     <tr
                       key={feature.name}
-                      className={`border-b border-border/50 ${index % 2 === 0 ? 'bg-muted/20' : ''}`}
+                      className={`border-b border-border/50 ${index % 2 === 0 ? 'bg-muted/10' : ''}`}
                     >
-                      <td className="p-6 font-medium">{feature.name}</td>
+                      <td className="p-6 font-medium text-foreground">{feature.name}</td>
                       <td className="p-6 text-center">
                         {typeof feature.starter === 'boolean' ? (
                           feature.starter ? (
-                            <Check className="w-5 h-5 text-secondary mx-auto" />
+                            <Check className="w-5 h-5 text-primary mx-auto" />
                           ) : (
                             <span className="text-muted-foreground">—</span>
                           )
@@ -199,12 +200,12 @@ const Pricing = () => {
                       <td className="p-6 text-center">
                         {typeof feature.enterprise === 'boolean' ? (
                           feature.enterprise ? (
-                            <Check className="w-5 h-5 text-accent mx-auto" />
+                            <Check className="w-5 h-5 text-secondary mx-auto" />
                           ) : (
                             <span className="text-muted-foreground">—</span>
                           )
                         ) : (
-                          <span className="text-accent font-medium">{feature.enterprise}</span>
+                          <span className="text-secondary font-medium">{feature.enterprise}</span>
                         )}
                       </td>
                     </tr>
@@ -233,15 +234,15 @@ const Pricing = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.05 }}
-                className="glass-card overflow-hidden"
+                className="cyber-card overflow-hidden border-accent/15 hover:border-primary/30 transition-all duration-300"
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
                   className="w-full p-6 flex items-center justify-between text-left"
                 >
-                  <span className="font-heading font-semibold pr-8">{faq.question}</span>
-                  <HelpCircle
-                    className={`w-5 h-5 flex-shrink-0 transition-transform ${
+                  <span className="font-heading font-semibold pr-8 text-foreground">{faq.question}</span>
+                  <ChevronDown
+                    className={`w-5 h-5 flex-shrink-0 transition-transform duration-300 ${
                       openFaq === index ? 'rotate-180 text-primary' : 'text-muted-foreground'
                     }`}
                   />
