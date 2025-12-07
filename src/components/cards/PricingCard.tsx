@@ -26,32 +26,32 @@ export const PricingCard = ({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6, delay }}
-      whileHover={{ y: -12, transition: { duration: 0.3 } }}
-      className={`relative ${popular ? 'lg:-mt-6' : ''}`}
+      transition={{ duration: 0.5, delay }}
+      whileHover={{ y: -4, transition: { duration: 0.2 } }}
+      className={`relative ${popular ? 'lg:-mt-4' : ''}`}
     >
       {/* Popular badge */}
       {popular && (
         <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-          <span className="px-4 py-1 rounded-full text-sm font-semibold text-primary-foreground bg-gradient-to-r from-primary to-accent">
+          <span className="px-4 py-1.5 rounded-full text-sm font-semibold text-primary-foreground bg-gradient-to-r from-primary to-secondary">
             Most Popular
           </span>
         </div>
       )}
 
       <div
-        className={`glass-card p-8 h-full flex flex-col ${
+        className={`cyber-card p-8 h-full flex flex-col ${
           popular
-            ? 'neon-border-purple border-primary/30'
-            : 'hover:neon-border-cyan'
-        } transition-all duration-500`}
+            ? 'cyber-border-glow border-primary/30'
+            : 'border-accent/20 hover:border-primary/30 hover:cyber-glow'
+        } transition-all duration-300`}
       >
         {/* Header */}
         <div className="mb-8">
-          <h3 className="font-heading font-bold text-2xl mb-2">{name}</h3>
+          <h3 className="font-heading font-bold text-2xl mb-2 text-foreground">{name}</h3>
           <p className="text-muted-foreground text-sm">{description}</p>
         </div>
 
@@ -78,11 +78,11 @@ export const PricingCard = ({
               initial={{ opacity: 0, x: -10 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: delay + index * 0.1 }}
+              transition={{ delay: delay + index * 0.08 }}
               className="flex items-start gap-3"
             >
               <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
-                popular ? 'bg-primary/20' : 'bg-secondary/20'
+                popular ? 'bg-primary/20 border border-primary/30' : 'bg-secondary/15 border border-secondary/25'
               }`}>
                 <Check className={`w-3 h-3 ${popular ? 'text-primary' : 'text-secondary'}`} />
               </div>

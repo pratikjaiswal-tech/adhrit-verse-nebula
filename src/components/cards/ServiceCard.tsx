@@ -7,63 +7,34 @@ interface ServiceCardProps {
   icon: LucideIcon;
   title: string;
   description: string;
-  color: 'purple' | 'cyan' | 'pink';
   delay?: number;
   link?: string;
 }
-
-const colorClasses = {
-  purple: {
-    glow: 'neon-border-purple',
-    iconBg: 'from-primary/20 to-primary/5',
-    iconColor: 'text-primary',
-    hoverBorder: 'hover:border-primary/50',
-  },
-  cyan: {
-    glow: 'neon-border-cyan',
-    iconBg: 'from-secondary/20 to-secondary/5',
-    iconColor: 'text-secondary',
-    hoverBorder: 'hover:border-secondary/50',
-  },
-  pink: {
-    glow: 'neon-border-pink',
-    iconBg: 'from-accent/20 to-accent/5',
-    iconColor: 'text-accent',
-    hoverBorder: 'hover:border-accent/50',
-  },
-};
 
 export const ServiceCard = ({ 
   icon: Icon, 
   title, 
   description, 
-  color, 
   delay = 0,
   link = '/services'
 }: ServiceCardProps) => {
-  const colors = colorClasses[color];
-
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.6, delay }}
-      whileHover={{ y: -8, transition: { duration: 0.3 } }}
+      transition={{ duration: 0.5, delay }}
+      whileHover={{ y: -4, transition: { duration: 0.2 } }}
       className="group"
     >
-      <div className={`glass-card p-8 h-full ${colors.hoverBorder} transition-all duration-500 group-hover:${colors.glow}`}>
+      <div className="cyber-card p-8 h-full border-accent/20 hover:border-primary/40 hover:cyber-glow transition-all duration-300">
         {/* Icon */}
-        <motion.div
-          whileHover={{ rotate: 360 }}
-          transition={{ duration: 0.8 }}
-          className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${colors.iconBg} flex items-center justify-center mb-6`}
-        >
-          <Icon className={`w-8 h-8 ${colors.iconColor}`} />
-        </motion.div>
+        <div className="w-14 h-14 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-6 group-hover:bg-primary/15 transition-colors">
+          <Icon className="w-7 h-7 text-primary" />
+        </div>
 
         {/* Title */}
-        <h3 className="font-heading font-bold text-xl mb-4 group-hover:gradient-text transition-all duration-300">
+        <h3 className="font-heading font-bold text-xl mb-4 text-foreground group-hover:text-primary transition-colors">
           {title}
         </h3>
 
@@ -75,7 +46,7 @@ export const ServiceCard = ({
         {/* Link */}
         <Link
           to={link}
-          className={`inline-flex items-center gap-2 ${colors.iconColor} font-medium group/link`}
+          className="inline-flex items-center gap-2 text-accent font-medium group/link hover:text-primary transition-colors"
         >
           Learn More
           <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
