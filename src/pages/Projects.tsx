@@ -110,8 +110,7 @@ const Projects = () => {
     <main className="pt-24">
       {/* Hero */}
       <section className="section-padding relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-radial pointer-events-none" />
-        <div className="absolute inset-0 cyber-grid opacity-20 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none" />
         
         <div className="container-custom relative">
           <SectionHeading
@@ -125,13 +124,13 @@ const Projects = () => {
             {categories.map((category) => (
               <motion.button
                 key={category}
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => setActiveCategory(category)}
-                className={`px-5 py-2.5 rounded-lg font-medium transition-all duration-300 ${
+                className={`px-5 py-2.5 rounded-lg font-medium transition-all ${
                   activeCategory === category
-                    ? 'bg-gradient-to-r from-primary to-secondary text-primary-foreground'
-                    : 'cyber-card text-muted-foreground hover:text-foreground border-accent/15 hover:border-primary/30'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'glass-card text-muted-foreground hover:text-foreground'
                 }`}
               >
                 {category}
@@ -173,22 +172,16 @@ const Projects = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/90 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm"
             onClick={() => setSelectedProject(null)}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="cyber-card max-w-3xl w-full max-h-[90vh] overflow-y-auto border-primary/30"
+              className="glass-card max-w-3xl w-full max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Holographic frame corners */}
-              <div className="absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 border-primary/60 rounded-tl-lg" />
-              <div className="absolute top-2 right-2 w-8 h-8 border-t-2 border-r-2 border-primary/60 rounded-tr-lg" />
-              <div className="absolute bottom-2 left-2 w-8 h-8 border-b-2 border-l-2 border-primary/60 rounded-bl-lg" />
-              <div className="absolute bottom-2 right-2 w-8 h-8 border-b-2 border-r-2 border-primary/60 rounded-br-lg" />
-              
               {/* Modal Image */}
               <div className="relative aspect-video">
                 <img
@@ -196,10 +189,9 @@ const Projects = () => {
                   alt={selectedProject.title}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="absolute top-4 right-4 w-10 h-10 rounded-full cyber-card flex items-center justify-center text-foreground hover:text-primary transition-colors border-accent/20 hover:border-primary/40"
+                  className="absolute top-4 right-4 w-10 h-10 rounded-full glass-card flex items-center justify-center text-foreground hover:text-primary transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -210,7 +202,7 @@ const Projects = () => {
                 <span className="text-primary text-sm font-medium uppercase tracking-wider">
                   {selectedProject.category}
                 </span>
-                <h2 className="font-heading font-bold text-2xl md:text-3xl mt-2 mb-4 text-foreground">
+                <h2 className="font-heading font-bold text-2xl md:text-3xl mt-2 mb-4">
                   {selectedProject.title}
                 </h2>
                 <p className="text-muted-foreground mb-6">
@@ -219,12 +211,12 @@ const Projects = () => {
 
                 {/* Tech Stack */}
                 <div className="mb-6">
-                  <h4 className="font-heading font-semibold mb-3 text-foreground">Technologies Used</h4>
+                  <h4 className="font-heading font-semibold mb-3">Technologies Used</h4>
                   <div className="flex flex-wrap gap-2">
                     {selectedProject.techStack.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 rounded-lg bg-primary/10 border border-primary/20 text-primary text-sm"
+                        className="px-3 py-1 rounded-lg bg-primary/10 text-primary text-sm"
                       >
                         {tech}
                       </span>
@@ -233,7 +225,7 @@ const Projects = () => {
                 </div>
 
                 {/* Outcome */}
-                <div className="cyber-card p-4 mb-6 border-secondary/30">
+                <div className="glass-card p-4 mb-6 neon-border-cyan">
                   <h4 className="font-heading font-semibold mb-2 text-secondary">Key Outcome</h4>
                   <p className="text-foreground/80">{selectedProject.outcome}</p>
                 </div>
@@ -270,7 +262,7 @@ const Projects = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="cyber-card p-10 md:p-16 text-center cyber-border-glow"
+            className="glass-card p-10 md:p-16 text-center neon-border-purple"
           >
             <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">
               Have a <span className="gradient-text">Project</span> in Mind?

@@ -3,118 +3,19 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, OrbitControls, Line } from '@react-three/drei';
 import * as THREE from 'three';
 
-// AI Data Network - Living network with soft moving nodes and connections
-const DataNetwork = () => {
-  const groupRef = useRef<THREE.Group>(null);
-  
-  // Generate network nodes
-  const nodes = useMemo(() => {
-    const nodeData: { pos: THREE.Vector3; connections: number[] }[] = [];
-    const count = 20;
-    
-    for (let i = 0; i < count; i++) {
-      const pos = new THREE.Vector3(
-        (Math.random() - 0.5) * 8,
-        (Math.random() - 0.5) * 5,
-        (Math.random() - 0.5) * 4
-      );
-      
-      // Find closest nodes for connections
-      const connections: number[] = [];
-      nodeData.forEach((node, idx) => {
-        if (pos.distanceTo(node.pos) < 3) {
-          connections.push(idx);
-        }
-      });
-      
-      nodeData.push({ pos, connections });
-    }
-    return nodeData;
-  }, []);
-
-  useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y = state.clock.getElapsedTime() * 0.03;
-    }
-  });
-
-  return (
-    <group ref={groupRef}>
-      {/* Network Nodes */}
-      {nodes.map((node, i) => (
-        <NetworkNode key={i} position={node.pos} index={i} />
-      ))}
-      
-      {/* Network Connections */}
-      {nodes.map((node, i) => 
-        node.connections.map((connIdx, j) => (
-          <NetworkConnection 
-            key={`${i}-${j}`} 
-            start={node.pos} 
-            end={nodes[connIdx].pos} 
-          />
-        ))
-      )}
-    </group>
-  );
-};
-
-const NetworkNode = ({ position, index }: { position: THREE.Vector3; index: number }) => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const pulseRef = useRef<THREE.Mesh>(null);
-  
-  useFrame((state) => {
-    if (meshRef.current) {
-      const scale = 1 + Math.sin(state.clock.getElapsedTime() * 0.8 + index * 0.5) * 0.15;
-      meshRef.current.scale.setScalar(scale);
-    }
-    if (pulseRef.current) {
-      pulseRef.current.material.opacity = 0.2 + Math.sin(state.clock.getElapsedTime() + index) * 0.1;
-    }
-  });
-
-  return (
-    <Float speed={0.8} rotationIntensity={0} floatIntensity={0.3}>
-      <group position={position.toArray()}>
-        <mesh ref={meshRef}>
-          <sphereGeometry args={[0.06, 16, 16]} />
-          <meshBasicMaterial color="#00B3FF" transparent opacity={0.9} />
-        </mesh>
-        <mesh ref={pulseRef}>
-          <sphereGeometry args={[0.12, 16, 16]} />
-          <meshBasicMaterial color="#2563EB" transparent opacity={0.2} />
-        </mesh>
-      </group>
-    </Float>
-  );
-};
-
-const NetworkConnection = ({ start, end }: { start: THREE.Vector3; end: THREE.Vector3 }) => {
-  return (
-    <Line
-      ref={lineRef}
-      points={[start, end]}
-      color="#2563EB"
-      lineWidth={0.5}
-      transparent
-      opacity={0.2}
-    />
-  );
-};
-
-// Wireframe Globe - Slow rotating
+// Wireframe Globe
 const WireframeGlobe = ({ position, scale = 1 }: { position: [number, number, number]; scale?: number }) => {
   const meshRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.05;
-      meshRef.current.rotation.x = Math.sin(state.clock.getElapsedTime() * 0.03) * 0.08;
+      meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.08;
+      meshRef.current.rotation.x = Math.sin(state.clock.getElapsedTime() * 0.05) * 0.1;
     }
   });
 
   const rings = useMemo(() => {
-    const ringCount = 10;
+    const ringCount = 8;
     const points: THREE.Vector3[][] = [];
     
     for (let i = 0; i < ringCount; i++) {
@@ -123,8 +24,8 @@ const WireframeGlobe = ({ position, scale = 1 }: { position: [number, number, nu
       const radius = Math.sin(lat) * 2 * scale;
       const y = Math.cos(lat) * 2 * scale;
       
-      for (let j = 0; j <= 48; j++) {
-        const lng = (j / 48) * Math.PI * 2;
+      for (let j = 0; j <= 32; j++) {
+        const lng = (j / 32) * Math.PI * 2;
         ring.push(new THREE.Vector3(
           Math.cos(lng) * radius,
           y,
@@ -137,15 +38,15 @@ const WireframeGlobe = ({ position, scale = 1 }: { position: [number, number, nu
   }, [scale]);
 
   const meridians = useMemo(() => {
-    const meridianCount = 16;
+    const meridianCount = 12;
     const points: THREE.Vector3[][] = [];
     
     for (let i = 0; i < meridianCount; i++) {
       const meridian: THREE.Vector3[] = [];
       const lng = (i / meridianCount) * Math.PI * 2;
       
-      for (let j = 0; j <= 48; j++) {
-        const lat = (j / 48) * Math.PI;
+      for (let j = 0; j <= 32; j++) {
+        const lat = (j / 32) * Math.PI;
         const radius = Math.sin(lat) * 2 * scale;
         const y = Math.cos(lat) * 2 * scale;
         meridian.push(new THREE.Vector3(
@@ -166,9 +67,9 @@ const WireframeGlobe = ({ position, scale = 1 }: { position: [number, number, nu
           key={`ring-${i}`}
           points={ring}
           color="#2563EB"
-          lineWidth={0.8}
+          lineWidth={1}
           transparent
-          opacity={0.25}
+          opacity={0.4}
         />
       ))}
       {meridians.map((meridian, i) => (
@@ -176,65 +77,12 @@ const WireframeGlobe = ({ position, scale = 1 }: { position: [number, number, nu
           key={`meridian-${i}`}
           points={meridian}
           color="#00B3FF"
-          lineWidth={0.8}
+          lineWidth={1}
           transparent
-          opacity={0.2}
+          opacity={0.3}
         />
       ))}
-      {/* Inner glow sphere */}
-      <mesh>
-        <sphereGeometry args={[1.9 * scale, 32, 32]} />
-        <meshBasicMaterial color="#2563EB" transparent opacity={0.03} />
-      </mesh>
     </group>
-  );
-};
-
-// Holographic Shield
-const HolographicShield = ({ position }: { position: [number, number, number] }) => {
-  const groupRef = useRef<THREE.Group>(null);
-  const scanRef = useRef<THREE.Mesh>(null);
-
-  useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y = state.clock.getElapsedTime() * 0.08;
-    }
-    if (scanRef.current) {
-      scanRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 0.5) * 1.2;
-    }
-  });
-
-  const shieldShape = useMemo(() => {
-    const shape = new THREE.Shape();
-    shape.moveTo(0, 1.5);
-    shape.bezierCurveTo(0.3, 1.5, 1, 1.2, 1.2, 0.5);
-    shape.bezierCurveTo(1.3, 0, 1.2, -0.5, 0.8, -1);
-    shape.bezierCurveTo(0.5, -1.3, 0, -1.5, 0, -1.5);
-    shape.bezierCurveTo(0, -1.5, -0.5, -1.3, -0.8, -1);
-    shape.bezierCurveTo(-1.2, -0.5, -1.3, 0, -1.2, 0.5);
-    shape.bezierCurveTo(-1, 1.2, -0.3, 1.5, 0, 1.5);
-    return shape;
-  }, []);
-
-  return (
-    <Float speed={1} rotationIntensity={0.1} floatIntensity={0.4}>
-      <group ref={groupRef} position={position} scale={0.9}>
-        <mesh>
-          <shapeGeometry args={[shieldShape]} />
-          <meshBasicMaterial color="#B8C7D6" wireframe transparent opacity={0.5} />
-        </mesh>
-        {/* Scan line */}
-        <mesh ref={scanRef}>
-          <planeGeometry args={[2.5, 0.02]} />
-          <meshBasicMaterial color="#00B3FF" transparent opacity={0.6} />
-        </mesh>
-        {/* Inner shield glow */}
-        <mesh position={[0, 0, -0.01]}>
-          <shapeGeometry args={[shieldShape]} />
-          <meshBasicMaterial color="#2563EB" transparent opacity={0.05} />
-        </mesh>
-      </group>
-    </Float>
   );
 };
 
@@ -244,15 +92,16 @@ const CyberGrid = () => {
 
   useFrame((state) => {
     if (gridRef.current) {
-      gridRef.current.position.z = (state.clock.getElapsedTime() * 0.3) % 1.5;
+      gridRef.current.position.z = (state.clock.getElapsedTime() * 0.5) % 2;
     }
   });
 
   const lines = useMemo(() => {
     const gridLines: THREE.Vector3[][] = [];
-    const size = 25;
-    const divisions = 30;
+    const size = 20;
+    const divisions = 20;
     
+    // Horizontal lines
     for (let i = -divisions; i <= divisions; i++) {
       gridLines.push([
         new THREE.Vector3(-size, 0, i * (size / divisions)),
@@ -260,6 +109,7 @@ const CyberGrid = () => {
       ]);
     }
     
+    // Vertical lines
     for (let i = -divisions; i <= divisions; i++) {
       gridLines.push([
         new THREE.Vector3(i * (size / divisions), 0, -size),
@@ -271,30 +121,72 @@ const CyberGrid = () => {
   }, []);
 
   return (
-    <group ref={gridRef} position={[0, -4, 0]} rotation={[-Math.PI / 5, 0, 0]}>
+    <group ref={gridRef} position={[0, -3, 0]} rotation={[-Math.PI / 6, 0, 0]}>
       {lines.map((line, i) => (
         <Line
           key={i}
           points={line}
           color="#2563EB"
-          lineWidth={0.3}
+          lineWidth={0.5}
           transparent
-          opacity={0.1}
+          opacity={0.15}
         />
       ))}
     </group>
   );
 };
 
-// Subtle Data Particles
+// Shield Shape
+const ShieldOutline = ({ position }: { position: [number, number, number] }) => {
+  const meshRef = useRef<THREE.Group>(null);
+
+  useFrame((state) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.15;
+    }
+  });
+
+  const shieldPoints = useMemo(() => {
+    const points: THREE.Vector3[] = [];
+    // Shield shape
+    points.push(new THREE.Vector3(0, 1.2, 0));
+    points.push(new THREE.Vector3(0.8, 0.8, 0));
+    points.push(new THREE.Vector3(1, 0.3, 0));
+    points.push(new THREE.Vector3(0.9, -0.3, 0));
+    points.push(new THREE.Vector3(0.5, -0.8, 0));
+    points.push(new THREE.Vector3(0, -1.2, 0));
+    points.push(new THREE.Vector3(-0.5, -0.8, 0));
+    points.push(new THREE.Vector3(-0.9, -0.3, 0));
+    points.push(new THREE.Vector3(-1, 0.3, 0));
+    points.push(new THREE.Vector3(-0.8, 0.8, 0));
+    points.push(new THREE.Vector3(0, 1.2, 0));
+    return points;
+  }, []);
+
+  return (
+    <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
+      <group ref={meshRef} position={position} scale={0.8}>
+        <Line
+          points={shieldPoints}
+          color="#B8C7D6"
+          lineWidth={2}
+          transparent
+          opacity={0.6}
+        />
+      </group>
+    </Float>
+  );
+};
+
+// Data Particles
 const DataParticles = () => {
-  const count = 60;
+  const count = 100;
   const positions = useMemo(() => {
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 18;
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 12;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 10;
+      pos[i * 3] = (Math.random() - 0.5) * 15;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 10;
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 15;
     }
     return pos;
   }, []);
@@ -303,8 +195,7 @@ const DataParticles = () => {
 
   useFrame((state) => {
     if (pointsRef.current) {
-      pointsRef.current.rotation.y = state.clock.getElapsedTime() * 0.015;
-      pointsRef.current.rotation.x = Math.sin(state.clock.getElapsedTime() * 0.01) * 0.05;
+      pointsRef.current.rotation.y = state.clock.getElapsedTime() * 0.02;
     }
   });
 
@@ -317,35 +208,58 @@ const DataParticles = () => {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.025}
+        size={0.04}
         color="#00B3FF"
         transparent
-        opacity={0.4}
+        opacity={0.5}
         sizeAttenuation
       />
     </points>
   );
 };
 
+// Hexagon Node
+const HexNode = ({ position }: { position: [number, number, number] }) => {
+  const meshRef = useRef<THREE.Mesh>(null);
+
+  useFrame((state) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.z = state.clock.getElapsedTime() * 0.2;
+    }
+  });
+
+  return (
+    <Float speed={2} rotationIntensity={0.1} floatIntensity={0.3}>
+      <mesh ref={meshRef} position={position}>
+        <circleGeometry args={[0.3, 6]} />
+        <meshBasicMaterial color="#2563EB" wireframe transparent opacity={0.5} />
+      </mesh>
+    </Float>
+  );
+};
+
 const Scene = () => {
   return (
     <>
-      <ambientLight intensity={0.15} />
-      <directionalLight position={[5, 5, 5]} intensity={0.3} color="#ffffff" />
-      <pointLight position={[-5, 5, 5]} intensity={0.2} color="#2563EB" />
-      <pointLight position={[5, -5, -5]} intensity={0.15} color="#00B3FF" />
+      <ambientLight intensity={0.2} />
+      <directionalLight position={[5, 5, 5]} intensity={0.5} color="#ffffff" />
+      <pointLight position={[-5, 5, 5]} intensity={0.3} color="#2563EB" />
+      <pointLight position={[5, -5, -5]} intensity={0.2} color="#00B3FF" />
 
-      <WireframeGlobe position={[3, 0, -3]} scale={1.4} />
-      <HolographicShield position={[-3, 0.5, -1]} />
-      <DataNetwork />
+      <WireframeGlobe position={[2.5, 0, -2]} scale={1.2} />
+      <ShieldOutline position={[-2.5, 0.5, 0]} />
       <CyberGrid />
       <DataParticles />
+      
+      <HexNode position={[-1, 2, 1]} />
+      <HexNode position={[1.5, -1.5, 0.5]} />
+      <HexNode position={[3, 1.5, -1]} />
 
       <OrbitControls
         enableZoom={false}
         enablePan={false}
         autoRotate
-        autoRotateSpeed={0.2}
+        autoRotateSpeed={0.3}
         maxPolarAngle={Math.PI / 2}
         minPolarAngle={Math.PI / 3}
       />
@@ -355,55 +269,42 @@ const Scene = () => {
 
 export const HeroScene = () => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReducedMotion(mediaQuery.matches);
-    
     const timer = setTimeout(() => setIsLoaded(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <div className="absolute inset-0 -z-10">
-      {/* Base gradient background */}
+      {/* Cyber gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-card to-background" />
       
       {/* Subtle grid pattern */}
-      <div className="absolute inset-0 cyber-grid opacity-20" />
+      <div className="absolute inset-0 cyber-grid opacity-30" />
       
-      {/* Subtle glow orbs */}
+      {/* Animated glow orbs - blue only */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-primary/8 rounded-full blur-3xl animate-float animate-pulse-slow" />
-        <div className="absolute bottom-1/4 -right-32 w-[500px] h-[500px] bg-secondary/6 rounded-full blur-3xl animate-float-delayed animate-pulse-slow" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/4 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 -left-20 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-float animate-pulse-slow" />
+        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-secondary/8 rounded-full blur-3xl animate-float-delayed animate-pulse-slow" />
       </div>
       
-      {/* 3D Canvas - only render if motion is allowed */}
-      {!prefersReducedMotion && (
-        <div className={`absolute inset-0 transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-          <Suspense fallback={null}>
-            <Canvas
-              camera={{ position: [0, 0, 9], fov: 45 }}
-              dpr={[1, 1.5]}
-              gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-              style={{ background: 'transparent' }}
-            >
-              <Scene />
-            </Canvas>
-          </Suspense>
-        </div>
-      )}
+      {/* 3D Canvas */}
+      <div className={`absolute inset-0 transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+        <Suspense fallback={null}>
+          <Canvas
+            camera={{ position: [0, 0, 8], fov: 45 }}
+            dpr={[1, 2]}
+            gl={{ antialias: true, alpha: true }}
+            style={{ background: 'transparent' }}
+          >
+            <Scene />
+          </Canvas>
+        </Suspense>
+      </div>
       
       {/* Gradient overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/10 to-background pointer-events-none" />
-      
-      {/* Subtle light rays */}
-      <div className="absolute inset-0 pointer-events-none opacity-30">
-        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-primary/20 via-transparent to-transparent" />
-        <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-secondary/15 via-transparent to-transparent" />
-      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background pointer-events-none" />
     </div>
   );
 };

@@ -201,23 +201,6 @@
       linear-gradient(90deg, hsl(var(--border) / 0.3) 1px, transparent 1px);
     background-size: 60px 60px;
   }
-  
-  /* Scan line animation */
-  .scan-line {
-    animation: scan-sweep 3s ease-in-out infinite;
-  }
-  
-  /* Holographic shimmer */
-  .holo-shimmer {
-    background: linear-gradient(
-      90deg,
-      transparent,
-      hsl(var(--primary) / 0.1),
-      hsl(var(--secondary) / 0.1),
-      transparent
-    );
-    animation: shimmer 3s ease-in-out infinite;
-  }
 }
 
 @layer utilities {
@@ -262,26 +245,6 @@
   }
   100% {
     transform: translateY(60px);
-  }
-}
-
-@keyframes scan-sweep {
-  0%, 100% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  50% {
-    transform: translateX(100%);
-    opacity: 1;
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
   }
 }
 

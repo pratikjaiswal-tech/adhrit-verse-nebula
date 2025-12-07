@@ -17,7 +17,8 @@ const services = [
     id: 'web',
     icon: Code2,
     title: 'Web Development',
-    description: 'Custom web solutions built with cutting-edge technologies that deliver exceptional performance and security.',
+    description: 'Custom web solutions built with cutting-edge technologies that deliver exceptional performance and scalability.',
+    color: 'purple',
     features: [
       'Custom website development',
       'E-commerce solutions',
@@ -33,6 +34,7 @@ const services = [
     icon: Smartphone,
     title: 'App Development',
     description: 'Native and cross-platform mobile applications that deliver exceptional user experiences across all devices.',
+    color: 'cyan',
     features: [
       'iOS native development',
       'Android native development',
@@ -48,6 +50,7 @@ const services = [
     icon: Palette,
     title: 'UI/UX Design',
     description: 'User-centered design that combines aesthetics with functionality to create memorable digital experiences.',
+    color: 'pink',
     features: [
       'User research & analysis',
       'Wireframing & prototyping',
@@ -63,6 +66,7 @@ const services = [
     icon: Shield,
     title: 'Cybersecurity',
     description: 'Ethical hacking, penetration testing, and security audits to protect your digital assets from evolving threats.',
+    color: 'purple',
     features: [
       'Penetration testing',
       'Vulnerability assessment',
@@ -78,6 +82,7 @@ const services = [
     icon: Brain,
     title: 'AI/ML Integrations',
     description: 'Harness the power of artificial intelligence to automate processes and gain competitive advantages.',
+    color: 'cyan',
     features: [
       'Machine learning models',
       'Natural language processing',
@@ -93,6 +98,7 @@ const services = [
     icon: Cloud,
     title: 'Cloud & DevOps',
     description: 'Scalable cloud infrastructure and CI/CD pipelines that accelerate your development and deployment cycles.',
+    color: 'pink',
     features: [
       'Cloud migration',
       'Infrastructure as Code',
@@ -105,13 +111,36 @@ const services = [
   },
 ];
 
+const colorStyles = {
+  purple: {
+    iconBg: 'from-primary/20 to-primary/5',
+    iconColor: 'text-primary',
+    tagBg: 'bg-primary/10 text-primary',
+    glow: 'neon-border-purple',
+    border: 'border-primary/20',
+  },
+  cyan: {
+    iconBg: 'from-secondary/20 to-secondary/5',
+    iconColor: 'text-secondary',
+    tagBg: 'bg-secondary/10 text-secondary',
+    glow: 'neon-border-cyan',
+    border: 'border-secondary/20',
+  },
+  pink: {
+    iconBg: 'from-accent/20 to-accent/5',
+    iconColor: 'text-accent',
+    tagBg: 'bg-accent/10 text-accent',
+    glow: 'neon-border-pink',
+    border: 'border-accent/20',
+  },
+};
+
 const Services = () => {
   return (
     <main className="pt-24">
       {/* Hero */}
       <section className="section-padding relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-radial pointer-events-none" />
-        <div className="absolute inset-0 cyber-grid opacity-20 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none" />
         
         <div className="container-custom relative">
           <SectionHeading
@@ -127,6 +156,7 @@ const Services = () => {
         <div className="container-custom">
           <div className="space-y-24">
             {services.map((service, index) => {
+              const styles = colorStyles[service.color as keyof typeof colorStyles];
               const isEven = index % 2 === 0;
 
               return (
@@ -137,17 +167,21 @@ const Services = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-100px' }}
                   transition={{ duration: 0.6 }}
-                  className={`grid lg:grid-cols-2 gap-12 items-center`}
+                  className={`grid lg:grid-cols-2 gap-12 items-center ${
+                    isEven ? '' : 'lg:flex-row-reverse'
+                  }`}
                 >
                   {/* Content */}
                   <div className={isEven ? '' : 'lg:order-2'}>
-                    {/* Icon with holographic effect */}
-                    <div className="relative w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/15 to-primary/5 border border-primary/25 flex items-center justify-center mb-6 group">
-                      <service.icon className="w-10 h-10 text-primary" />
-                      <div className="absolute inset-0 rounded-2xl bg-primary/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    </div>
+                    <motion.div
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.8 }}
+                      className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${styles.iconBg} flex items-center justify-center mb-6`}
+                    >
+                      <service.icon className={`w-10 h-10 ${styles.iconColor}`} />
+                    </motion.div>
 
-                    <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4 text-foreground">
+                    <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
                       {service.title}
                     </h2>
 
@@ -158,9 +192,7 @@ const Services = () => {
                     <ul className="space-y-3 mb-8">
                       {service.features.map((feature) => (
                         <li key={feature} className="flex items-center gap-3">
-                          <div className="w-5 h-5 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center">
-                            <CheckCircle className="w-3 h-3 text-primary" />
-                          </div>
+                          <CheckCircle className={`w-5 h-5 ${styles.iconColor}`} />
                           <span className="text-foreground/80">{feature}</span>
                         </li>
                       ))}
@@ -168,34 +200,27 @@ const Services = () => {
 
                     <Link
                       to="/contact"
-                      className="inline-flex items-center gap-2 text-primary font-medium group/link hover:gap-3 transition-all duration-300"
+                      className={`inline-flex items-center gap-2 ${styles.iconColor} font-medium group`}
                     >
                       Get Started
-                      <ArrowRight className="w-4 h-4" />
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
                   </div>
 
-                  {/* Visual - Cyber glass card */}
+                  {/* Visual */}
                   <motion.div
-                    whileHover={{ y: -4 }}
+                    whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.3 }}
-                    className={`cyber-card p-8 border-accent/15 hover:border-primary/30 transition-all duration-500 ${isEven ? 'lg:order-2' : ''}`}
+                    className={`glass-card p-8 ${styles.glow} ${isEven ? 'lg:order-2' : ''}`}
                   >
-                    {/* Scan line effect */}
-                    <motion.div
-                      className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"
-                      animate={{ x: ['0%', '100%', '0%'] }}
-                      transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
-                    />
-                    
-                    <h4 className="font-heading font-semibold text-lg mb-6 text-foreground">
+                    <h4 className="font-heading font-semibold text-lg mb-6">
                       Technologies We Use
                     </h4>
                     <div className="flex flex-wrap gap-3">
                       {service.technologies.map((tech) => (
                         <span
                           key={tech}
-                          className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/20 text-sm font-medium text-primary"
+                          className={`px-4 py-2 rounded-lg ${styles.tagBg} text-sm font-medium`}
                         >
                           {tech}
                         </span>
@@ -216,7 +241,7 @@ const Services = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="cyber-card p-10 md:p-16 text-center cyber-border-glow"
+            className="glass-card p-10 md:p-16 text-center neon-border-purple"
           >
             <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">
               Need a <span className="gradient-text">Custom Solution</span>?

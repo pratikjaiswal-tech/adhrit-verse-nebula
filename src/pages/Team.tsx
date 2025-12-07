@@ -76,16 +76,19 @@ const values = [
     icon: Target,
     title: 'Our Mission',
     description: 'To empower businesses with cutting-edge digital solutions that drive growth, enhance efficiency, and create lasting impact in the digital landscape.',
+    color: 'primary',
   },
   {
     icon: Eye,
     title: 'Our Vision',
     description: 'To be the global leader in digital innovation, setting new standards for excellence in web development, AI integration, and cybersecurity.',
+    color: 'secondary',
   },
   {
     icon: Rocket,
     title: 'Our Values',
     description: 'Innovation, integrity, and client success drive everything we do. We believe in transparent partnerships and delivering measurable results.',
+    color: 'accent',
   },
 ];
 
@@ -94,8 +97,7 @@ const Team = () => {
     <main className="pt-24">
       {/* Hero */}
       <section className="section-padding relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-radial pointer-events-none" />
-        <div className="absolute inset-0 cyber-grid opacity-20 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none" />
         
         <div className="container-custom relative">
           <SectionHeading
@@ -117,13 +119,12 @@ const Team = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="cyber-card p-8 text-center border-accent/15 hover:border-primary/30 transition-all duration-500 group"
+                className="glass-card p-8 text-center"
               >
-                <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/15 to-primary/5 border border-primary/20 flex items-center justify-center mx-auto mb-6">
-                  <value.icon className="w-8 h-8 text-primary" />
-                  <div className="absolute inset-0 rounded-2xl bg-primary/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className={`w-16 h-16 rounded-2xl bg-${value.color}/10 flex items-center justify-center mx-auto mb-6`}>
+                  <value.icon className={`w-8 h-8 text-${value.color}`} />
                 </div>
-                <h3 className="font-heading font-bold text-xl mb-4 text-foreground">{value.title}</h3>
+                <h3 className="font-heading font-bold text-xl mb-4">{value.title}</h3>
                 <p className="text-muted-foreground">{value.description}</p>
               </motion.div>
             ))}
@@ -172,7 +173,7 @@ const Team = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="cyber-card p-10 md:p-16 border-accent/15"
+            className="glass-card p-10 md:p-16"
           >
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {[
