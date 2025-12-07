@@ -10,6 +10,7 @@ import {
   MapPin,
   ArrowUpRight
 } from 'lucide-react';
+import logo from '@/assets/adhritverse-logo.png';
 
 const footerLinks = {
   services: [
@@ -52,14 +53,16 @@ export const Footer = () => {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                <span className="text-primary-foreground font-heading font-bold text-2xl">A</span>
-              </div>
-              <span className="font-heading font-bold text-2xl gradient-text">AdhritVerse</span>
+              <img 
+                src={logo} 
+                alt="AdhritVerse" 
+                className="w-12 h-12 object-contain"
+              />
+              <span className="font-heading font-bold text-2xl text-accent">AdhritVerse</span>
             </Link>
             <p className="text-muted-foreground mb-6 max-w-sm">
-              Transforming ideas into digital reality. We craft innovative web solutions 
-              that drive growth and deliver exceptional user experiences.
+              Secure, Scalable, Future-ready Digital Solutions. We craft innovative 
+              web solutions with enterprise-grade security.
             </p>
             
             {/* Contact Info */}
@@ -92,9 +95,9 @@ export const Footer = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-11 h-11 rounded-lg glass-card flex items-center justify-center text-muted-foreground hover:text-primary hover:neon-border-purple transition-all duration-300"
+                  className="w-11 h-11 rounded-lg cyber-card flex items-center justify-center text-accent hover:text-secondary hover:cyber-glow-secondary transition-all duration-300"
                   aria-label={social.label}
                 >
                   <social.icon className="w-5 h-5" />
@@ -105,7 +108,7 @@ export const Footer = () => {
 
           {/* Services Links */}
           <div>
-            <h4 className="font-heading font-semibold text-lg mb-5">Services</h4>
+            <h4 className="font-heading font-semibold text-lg mb-5 text-foreground">Services</h4>
             <ul className="space-y-3">
               {footerLinks.services.map((link) => (
                 <li key={link.name}>
@@ -123,7 +126,7 @@ export const Footer = () => {
 
           {/* Company Links */}
           <div>
-            <h4 className="font-heading font-semibold text-lg mb-5">Company</h4>
+            <h4 className="font-heading font-semibold text-lg mb-5 text-foreground">Company</h4>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
@@ -141,7 +144,7 @@ export const Footer = () => {
 
           {/* Legal Links */}
           <div>
-            <h4 className="font-heading font-semibold text-lg mb-5">Legal</h4>
+            <h4 className="font-heading font-semibold text-lg mb-5 text-foreground">Legal</h4>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
@@ -164,7 +167,7 @@ export const Footer = () => {
             © {new Date().getFullYear()} AdhritVerse. All rights reserved.
           </p>
           <p className="text-muted-foreground text-sm">
-            Crafted with passion for digital excellence
+            Secure. Trusted. Enterprise-grade.
           </p>
         </div>
       </div>
