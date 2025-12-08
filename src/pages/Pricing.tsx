@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { PricingCard } from '@/components/cards/PricingCard';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { Check, ChevronDown } from 'lucide-react';
+import { Check, HelpCircle } from 'lucide-react';
 
 const pricingPlans = [
   {
@@ -97,25 +97,22 @@ const Pricing = () => {
     <main className="pt-24">
       {/* Hero */}
       <section className="section-padding relative overflow-hidden">
-        <div className="absolute inset-0 cyber-grid opacity-30 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-b from-tech-blue/5 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none" />
         
         <div className="container-custom relative">
           <SectionHeading
             label="Pricing"
-            title={<>Transparent <span className="text-tech-blue">Pricing</span> for Every Need</>}
+            title={<>Transparent <span className="gradient-text">Pricing</span> for Every Need</>}
             description="Choose the perfect plan that aligns with your project requirements and budget"
           />
 
           {/* Toggle */}
           <div className="flex justify-center mb-16">
-            <div className="cyber-glass-card p-1.5 inline-flex gap-1">
+            <div className="glass-card p-1.5 inline-flex gap-1">
               <button
                 onClick={() => setIsYearly(false)}
                 className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                  !isYearly 
-                    ? 'bg-tech-blue text-white' 
-                    : 'text-muted-text hover:text-main-text'
+                  !isYearly ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 Monthly Billing
@@ -123,13 +120,11 @@ const Pricing = () => {
               <button
                 onClick={() => setIsYearly(true)}
                 className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                  isYearly 
-                    ? 'bg-tech-blue text-white' 
-                    : 'text-muted-text hover:text-main-text'
+                  isYearly ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 Yearly Billing
-                <span className="ml-2 text-xs text-cyber-neon font-bold">SAVE 15%</span>
+                <span className="ml-2 text-xs text-secondary font-bold">SAVE 15%</span>
               </button>
             </div>
           </div>
@@ -152,7 +147,7 @@ const Pricing = () => {
       <section className="section-padding pt-0">
         <div className="container-custom">
           <SectionHeading
-            title={<>Feature <span className="text-tech-blue">Comparison</span></>}
+            title={<>Feature <span className="gradient-text">Comparison</span></>}
             description="A detailed look at what's included in each plan"
           />
 
@@ -160,56 +155,56 @@ const Pricing = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="cyber-glass-card overflow-hidden"
+            className="glass-card overflow-hidden"
           >
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-cyber-border">
-                    <th className="text-left p-6 font-heading font-semibold text-main-text">Feature</th>
-                    <th className="text-center p-6 font-heading font-semibold text-muted-text">Starter</th>
-                    <th className="text-center p-6 font-heading font-semibold text-tech-blue">Growth</th>
-                    <th className="text-center p-6 font-heading font-semibold text-muted-text">Enterprise</th>
+                  <tr className="border-b border-border">
+                    <th className="text-left p-6 font-heading font-semibold">Feature</th>
+                    <th className="text-center p-6 font-heading font-semibold">Starter</th>
+                    <th className="text-center p-6 font-heading font-semibold text-primary">Growth</th>
+                    <th className="text-center p-6 font-heading font-semibold">Enterprise</th>
                   </tr>
                 </thead>
                 <tbody>
                   {comparisonFeatures.map((feature, index) => (
                     <tr
                       key={feature.name}
-                      className={`border-b border-cyber-border/50 ${index % 2 === 0 ? 'bg-navy-steel/30' : ''}`}
+                      className={`border-b border-border/50 ${index % 2 === 0 ? 'bg-muted/20' : ''}`}
                     >
-                      <td className="p-6 font-medium text-main-text">{feature.name}</td>
+                      <td className="p-6 font-medium">{feature.name}</td>
                       <td className="p-6 text-center">
                         {typeof feature.starter === 'boolean' ? (
                           feature.starter ? (
-                            <Check className="w-5 h-5 text-tech-blue mx-auto" />
+                            <Check className="w-5 h-5 text-secondary mx-auto" />
                           ) : (
-                            <span className="text-muted-text">—</span>
+                            <span className="text-muted-foreground">—</span>
                           )
                         ) : (
-                          <span className="text-muted-text">{feature.starter}</span>
+                          <span className="text-muted-foreground">{feature.starter}</span>
                         )}
                       </td>
-                      <td className="p-6 text-center bg-tech-blue/5">
+                      <td className="p-6 text-center bg-primary/5">
                         {typeof feature.growth === 'boolean' ? (
                           feature.growth ? (
-                            <Check className="w-5 h-5 text-tech-blue mx-auto" />
+                            <Check className="w-5 h-5 text-primary mx-auto" />
                           ) : (
-                            <span className="text-muted-text">—</span>
+                            <span className="text-muted-foreground">—</span>
                           )
                         ) : (
-                          <span className="text-tech-blue font-medium">{feature.growth}</span>
+                          <span className="text-primary font-medium">{feature.growth}</span>
                         )}
                       </td>
                       <td className="p-6 text-center">
                         {typeof feature.enterprise === 'boolean' ? (
                           feature.enterprise ? (
-                            <Check className="w-5 h-5 text-cyber-neon mx-auto" />
+                            <Check className="w-5 h-5 text-accent mx-auto" />
                           ) : (
-                            <span className="text-muted-text">—</span>
+                            <span className="text-muted-foreground">—</span>
                           )
                         ) : (
-                          <span className="text-cyber-neon font-medium">{feature.enterprise}</span>
+                          <span className="text-accent font-medium">{feature.enterprise}</span>
                         )}
                       </td>
                     </tr>
@@ -226,7 +221,7 @@ const Pricing = () => {
         <div className="container-custom">
           <SectionHeading
             label="FAQ"
-            title={<>Frequently Asked <span className="text-tech-blue">Questions</span></>}
+            title={<>Frequently Asked <span className="gradient-text">Questions</span></>}
             description="Get answers to common questions about our services and pricing"
           />
 
@@ -238,16 +233,16 @@ const Pricing = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.05 }}
-                className="cyber-glass-card overflow-hidden"
+                className="glass-card overflow-hidden"
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
                   className="w-full p-6 flex items-center justify-between text-left"
                 >
-                  <span className="font-heading font-semibold pr-8 text-main-text">{faq.question}</span>
-                  <ChevronDown
-                    className={`w-5 h-5 flex-shrink-0 transition-transform text-tech-blue ${
-                      openFaq === index ? 'rotate-180' : ''
+                  <span className="font-heading font-semibold pr-8">{faq.question}</span>
+                  <HelpCircle
+                    className={`w-5 h-5 flex-shrink-0 transition-transform ${
+                      openFaq === index ? 'rotate-180 text-primary' : 'text-muted-foreground'
                     }`}
                   />
                 </button>
@@ -260,7 +255,7 @@ const Pricing = () => {
                   transition={{ duration: 0.3 }}
                   className="overflow-hidden"
                 >
-                  <p className="px-6 pb-6 text-muted-text">{faq.answer}</p>
+                  <p className="px-6 pb-6 text-muted-foreground">{faq.answer}</p>
                 </motion.div>
               </motion.div>
             ))}
