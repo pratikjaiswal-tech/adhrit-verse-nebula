@@ -21,21 +21,18 @@ const contactInfo = [
     label: 'Email',
     value: 'hello@adhritverse.com',
     href: 'mailto:hello@adhritverse.com',
-    color: 'primary',
   },
   {
     icon: Phone,
     label: 'Phone',
     value: '+1 (234) 567-890',
     href: 'tel:+1234567890',
-    color: 'secondary',
   },
   {
     icon: MapPin,
     label: 'Location',
     value: 'San Francisco, CA',
     href: '#',
-    color: 'accent',
   },
 ];
 
@@ -101,12 +98,13 @@ const Contact = () => {
     <main className="pt-24">
       {/* Hero */}
       <section className="section-padding relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 cyber-grid opacity-30 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-tech-blue/5 via-transparent to-transparent pointer-events-none" />
         
         <div className="container-custom relative">
           <SectionHeading
             label="Contact Us"
-            title={<>Let's Start a <span className="gradient-text">Conversation</span></>}
+            title={<>Let's Start a <span className="text-tech-blue">Conversation</span></>}
             description="Ready to transform your digital presence? We're here to help you succeed."
           />
         </div>
@@ -127,14 +125,14 @@ const Contact = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="glass-card p-6 flex items-center gap-4 group hover:neon-border-purple transition-all duration-300 block"
+                  className="cyber-glass-card p-6 flex items-center gap-4 group hover:border-tech-blue/50 transition-all duration-300 block"
                 >
-                  <div className={`w-14 h-14 rounded-xl bg-${info.color}/10 flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                    <info.icon className={`w-6 h-6 text-${info.color}`} />
+                  <div className="w-14 h-14 rounded-xl bg-tech-blue/10 border border-tech-blue/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <info.icon className="w-6 h-6 text-tech-blue" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">{info.label}</p>
-                    <p className="font-medium text-foreground">{info.value}</p>
+                    <p className="text-sm text-muted-text">{info.label}</p>
+                    <p className="font-medium text-main-text">{info.value}</p>
                   </div>
                 </motion.a>
               ))}
@@ -146,7 +144,7 @@ const Contact = () => {
                 viewport={{ once: true }}
                 className="pt-8"
               >
-                <h4 className="font-heading font-semibold text-lg mb-4">Follow Us</h4>
+                <h4 className="font-heading font-semibold text-lg mb-4 text-silver">Follow Us</h4>
                 <div className="flex gap-3">
                   {socialLinks.map((social) => (
                     <motion.a
@@ -154,9 +152,9 @@ const Contact = () => {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1, y: -2 }}
+                      whileHover={{ y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      className="w-12 h-12 rounded-xl glass-card flex items-center justify-center text-muted-foreground hover:text-primary hover:neon-border-purple transition-all duration-300"
+                      className="w-12 h-12 rounded-xl cyber-glass-card flex items-center justify-center text-silver hover:text-tech-blue hover:border-tech-blue/50 transition-all duration-300"
                       aria-label={social.label}
                     >
                       <social.icon className="w-5 h-5" />
@@ -170,10 +168,10 @@ const Contact = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="glass-card p-6"
+                className="cyber-glass-card p-6"
               >
-                <h4 className="font-heading font-semibold text-lg mb-4">Business Hours</h4>
-                <div className="space-y-2 text-muted-foreground">
+                <h4 className="font-heading font-semibold text-lg mb-4 text-silver">Business Hours</h4>
+                <div className="space-y-2 text-muted-text">
                   <p>Monday - Friday: 9:00 AM - 6:00 PM PST</p>
                   <p>Saturday: 10:00 AM - 2:00 PM PST</p>
                   <p>Sunday: Closed</p>
@@ -188,13 +186,13 @@ const Contact = () => {
               viewport={{ once: true }}
               className="lg:col-span-3"
             >
-              <div className="glass-card p-8 md:p-10">
-                <h3 className="font-heading font-bold text-2xl mb-6">Send us a Message</h3>
+              <div className="cyber-glass-card p-8 md:p-10">
+                <h3 className="font-heading font-bold text-2xl mb-6 text-main-text">Send us a Message</h3>
                 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium mb-2">
+                      <label htmlFor="name" className="block text-sm font-medium mb-2 text-silver">
                         Full Name *
                       </label>
                       <input
@@ -204,12 +202,12 @@ const Contact = () => {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                        className="w-full px-4 py-3 rounded-xl bg-navy-steel/50 border border-cyber-border text-main-text placeholder-muted-text focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all"
                         placeholder="John Doe"
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium mb-2">
+                      <label htmlFor="email" className="block text-sm font-medium mb-2 text-silver">
                         Email Address *
                       </label>
                       <input
@@ -219,7 +217,7 @@ const Contact = () => {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                        className="w-full px-4 py-3 rounded-xl bg-navy-steel/50 border border-cyber-border text-main-text placeholder-muted-text focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all"
                         placeholder="john@example.com"
                       />
                     </div>
@@ -227,7 +225,7 @@ const Contact = () => {
 
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="company" className="block text-sm font-medium mb-2">
+                      <label htmlFor="company" className="block text-sm font-medium mb-2 text-silver">
                         Company
                       </label>
                       <input
@@ -236,12 +234,12 @@ const Contact = () => {
                         name="company"
                         value={formData.company}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                        className="w-full px-4 py-3 rounded-xl bg-navy-steel/50 border border-cyber-border text-main-text placeholder-muted-text focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all"
                         placeholder="Your Company"
                       />
                     </div>
                     <div>
-                      <label htmlFor="service" className="block text-sm font-medium mb-2">
+                      <label htmlFor="service" className="block text-sm font-medium mb-2 text-silver">
                         Service Interested In *
                       </label>
                       <select
@@ -250,11 +248,11 @@ const Contact = () => {
                         value={formData.service}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                        className="w-full px-4 py-3 rounded-xl bg-navy-steel/50 border border-cyber-border text-main-text focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all"
                       >
-                        <option value="">Select a service</option>
+                        <option value="" className="bg-cyber-black">Select a service</option>
                         {services.map((service) => (
-                          <option key={service} value={service}>
+                          <option key={service} value={service} className="bg-cyber-black">
                             {service}
                           </option>
                         ))}
@@ -263,7 +261,7 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <label htmlFor="budget" className="block text-sm font-medium mb-2">
+                    <label htmlFor="budget" className="block text-sm font-medium mb-2 text-silver">
                       Budget Range
                     </label>
                     <select
@@ -271,19 +269,19 @@ const Contact = () => {
                       name="budget"
                       value={formData.budget}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                      className="w-full px-4 py-3 rounded-xl bg-navy-steel/50 border border-cyber-border text-main-text focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all"
                     >
-                      <option value="">Select budget range</option>
-                      <option value="< $5,000">Less than $5,000</option>
-                      <option value="$5,000 - $10,000">$5,000 - $10,000</option>
-                      <option value="$10,000 - $25,000">$10,000 - $25,000</option>
-                      <option value="$25,000 - $50,000">$25,000 - $50,000</option>
-                      <option value="$50,000+">$50,000+</option>
+                      <option value="" className="bg-cyber-black">Select budget range</option>
+                      <option value="< $5,000" className="bg-cyber-black">Less than $5,000</option>
+                      <option value="$5,000 - $10,000" className="bg-cyber-black">$5,000 - $10,000</option>
+                      <option value="$10,000 - $25,000" className="bg-cyber-black">$10,000 - $25,000</option>
+                      <option value="$25,000 - $50,000" className="bg-cyber-black">$25,000 - $50,000</option>
+                      <option value="$50,000+" className="bg-cyber-black">$50,000+</option>
                     </select>
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium mb-2">
+                    <label htmlFor="message" className="block text-sm font-medium mb-2 text-silver">
                       Project Details *
                     </label>
                     <textarea
@@ -293,7 +291,7 @@ const Contact = () => {
                       onChange={handleChange}
                       required
                       rows={5}
-                      className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-navy-steel/50 border border-cyber-border text-main-text placeholder-muted-text focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all resize-none"
                       placeholder="Tell us about your project..."
                     />
                   </div>
@@ -301,10 +299,10 @@ const Contact = () => {
                   <motion.button
                     type="submit"
                     disabled={isSubmitting || isSubmitted}
-                    whileHover={{ scale: isSubmitting || isSubmitted ? 1 : 1.02 }}
+                    whileHover={{ y: isSubmitting || isSubmitted ? 0 : -2 }}
                     whileTap={{ scale: isSubmitting || isSubmitted ? 1 : 0.98 }}
-                    className={`w-full btn-primary flex items-center justify-center gap-2 ${
-                      isSubmitted ? 'bg-green-500 hover:bg-green-500' : ''
+                    className={`w-full cyber-button flex items-center justify-center gap-2 ${
+                      isSubmitted ? 'bg-green-600 hover:bg-green-600 border-green-500' : ''
                     }`}
                   >
                     {isSubmitting ? (

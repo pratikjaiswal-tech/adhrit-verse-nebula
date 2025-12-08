@@ -28,7 +28,7 @@ export const SectionHeading = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="inline-block px-4 py-2 rounded-full glass-card text-primary text-sm font-medium mb-4"
+          className="inline-block px-4 py-2 rounded-full bg-tech-blue/10 border border-tech-blue/30 text-tech-blue text-sm font-medium mb-4"
         >
           {label}
         </motion.span>
@@ -38,7 +38,7 @@ export const SectionHeading = ({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl mb-4"
+        className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl mb-4 text-main-text"
       >
         {title}
       </motion.h2>
@@ -48,7 +48,7 @@ export const SectionHeading = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-muted-foreground text-lg max-w-2xl mx-auto"
+          className="text-muted-text text-lg max-w-2xl mx-auto"
         >
           {description}
         </motion.p>
