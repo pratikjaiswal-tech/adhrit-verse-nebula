@@ -14,6 +14,7 @@ import {
   Loader2
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { CyberBackground } from '@/components/3d/CyberBackground';
 
 const contactInfo = [
   {
@@ -21,21 +22,18 @@ const contactInfo = [
     label: 'Email',
     value: 'hello@adhritverse.com',
     href: 'mailto:hello@adhritverse.com',
-    color: 'primary',
   },
   {
     icon: Phone,
     label: 'Phone',
     value: '+1 (234) 567-890',
     href: 'tel:+1234567890',
-    color: 'secondary',
   },
   {
     icon: MapPin,
     label: 'Location',
     value: 'San Francisco, CA',
     href: '#',
-    color: 'accent',
   },
 ];
 
@@ -99,22 +97,24 @@ const Contact = () => {
 
   return (
     <main className="pt-24">
-      {/* Hero */}
-      <section className="section-padding relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none" />
+      {/* Hero with 3D Background */}
+      <section className="section-padding relative overflow-hidden min-h-[50vh] flex items-center">
+        <CyberBackground variant="minimal" />
         
-        <div className="container-custom relative">
+        <div className="container-custom relative z-10">
           <SectionHeading
             label="Contact Us"
-            title={<>Let's Start a <span className="gradient-text">Conversation</span></>}
+            title={<>Let's Start a <span className="text-tech-blue">Conversation</span></>}
             description="Ready to transform your digital presence? We're here to help you succeed."
           />
         </div>
       </section>
 
       {/* Contact Form & Info */}
-      <section className="section-padding pt-0">
-        <div className="container-custom">
+      <section className="section-padding pt-0 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-steel/30 to-cyber-black pointer-events-none" />
+        
+        <div className="container-custom relative z-10">
           <div className="grid lg:grid-cols-5 gap-12">
             {/* Contact Info */}
             <div className="lg:col-span-2 space-y-8">
@@ -127,14 +127,14 @@ const Contact = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="glass-card p-6 flex items-center gap-4 group hover:neon-border-purple transition-all duration-300 block"
+                  className="cyber-glass p-6 flex items-center gap-4 group hover:border-tech-blue/50 transition-all duration-300 block border border-silver/20"
                 >
-                  <div className={`w-14 h-14 rounded-xl bg-${info.color}/10 flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                    <info.icon className={`w-6 h-6 text-${info.color}`} />
+                  <div className="w-14 h-14 rounded-xl bg-tech-blue/10 flex items-center justify-center group-hover:scale-110 transition-transform border border-tech-blue/20">
+                    <info.icon className="w-6 h-6 text-tech-blue" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">{info.label}</p>
-                    <p className="font-medium text-foreground">{info.value}</p>
+                    <p className="text-sm text-muted-text">{info.label}</p>
+                    <p className="font-medium text-main-text">{info.value}</p>
                   </div>
                 </motion.a>
               ))}
@@ -146,7 +146,7 @@ const Contact = () => {
                 viewport={{ once: true }}
                 className="pt-8"
               >
-                <h4 className="font-heading font-semibold text-lg mb-4">Follow Us</h4>
+                <h4 className="font-heading font-semibold text-lg mb-4 text-main-text">Follow Us</h4>
                 <div className="flex gap-3">
                   {socialLinks.map((social) => (
                     <motion.a
@@ -154,9 +154,9 @@ const Contact = () => {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1, y: -2 }}
+                      whileHover={{ y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      className="w-12 h-12 rounded-xl glass-card flex items-center justify-center text-muted-foreground hover:text-primary hover:neon-border-purple transition-all duration-300"
+                      className="w-12 h-12 rounded-xl cyber-glass flex items-center justify-center text-silver hover:text-tech-blue hover:border-tech-blue/50 transition-all duration-300 border border-silver/20"
                       aria-label={social.label}
                     >
                       <social.icon className="w-5 h-5" />
@@ -170,10 +170,10 @@ const Contact = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="glass-card p-6"
+                className="cyber-glass p-6 border border-silver/20"
               >
-                <h4 className="font-heading font-semibold text-lg mb-4">Business Hours</h4>
-                <div className="space-y-2 text-muted-foreground">
+                <h4 className="font-heading font-semibold text-lg mb-4 text-main-text">Business Hours</h4>
+                <div className="space-y-2 text-muted-text">
                   <p>Monday - Friday: 9:00 AM - 6:00 PM PST</p>
                   <p>Saturday: 10:00 AM - 2:00 PM PST</p>
                   <p>Sunday: Closed</p>
@@ -188,13 +188,13 @@ const Contact = () => {
               viewport={{ once: true }}
               className="lg:col-span-3"
             >
-              <div className="glass-card p-8 md:p-10">
-                <h3 className="font-heading font-bold text-2xl mb-6">Send us a Message</h3>
+              <div className="cyber-glass p-8 md:p-10 border border-silver/20">
+                <h3 className="font-heading font-bold text-2xl mb-6 text-main-text">Send us a Message</h3>
                 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium mb-2">
+                      <label htmlFor="name" className="block text-sm font-medium mb-2 text-main-text">
                         Full Name *
                       </label>
                       <input
@@ -204,12 +204,12 @@ const Contact = () => {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                        className="w-full px-4 py-3 rounded-xl bg-navy-steel/50 border border-divider focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all text-main-text placeholder:text-muted-text"
                         placeholder="John Doe"
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium mb-2">
+                      <label htmlFor="email" className="block text-sm font-medium mb-2 text-main-text">
                         Email Address *
                       </label>
                       <input
@@ -219,7 +219,7 @@ const Contact = () => {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                        className="w-full px-4 py-3 rounded-xl bg-navy-steel/50 border border-divider focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all text-main-text placeholder:text-muted-text"
                         placeholder="john@example.com"
                       />
                     </div>
@@ -227,7 +227,7 @@ const Contact = () => {
 
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="company" className="block text-sm font-medium mb-2">
+                      <label htmlFor="company" className="block text-sm font-medium mb-2 text-main-text">
                         Company
                       </label>
                       <input
@@ -236,12 +236,12 @@ const Contact = () => {
                         name="company"
                         value={formData.company}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                        className="w-full px-4 py-3 rounded-xl bg-navy-steel/50 border border-divider focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all text-main-text placeholder:text-muted-text"
                         placeholder="Your Company"
                       />
                     </div>
                     <div>
-                      <label htmlFor="service" className="block text-sm font-medium mb-2">
+                      <label htmlFor="service" className="block text-sm font-medium mb-2 text-main-text">
                         Service Interested In *
                       </label>
                       <select
@@ -250,11 +250,11 @@ const Contact = () => {
                         value={formData.service}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                        className="w-full px-4 py-3 rounded-xl bg-navy-steel/50 border border-divider focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all text-main-text"
                       >
-                        <option value="">Select a service</option>
+                        <option value="" className="bg-navy-steel">Select a service</option>
                         {services.map((service) => (
-                          <option key={service} value={service}>
+                          <option key={service} value={service} className="bg-navy-steel">
                             {service}
                           </option>
                         ))}
@@ -263,7 +263,7 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <label htmlFor="budget" className="block text-sm font-medium mb-2">
+                    <label htmlFor="budget" className="block text-sm font-medium mb-2 text-main-text">
                       Budget Range
                     </label>
                     <select
@@ -271,19 +271,19 @@ const Contact = () => {
                       name="budget"
                       value={formData.budget}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                      className="w-full px-4 py-3 rounded-xl bg-navy-steel/50 border border-divider focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all text-main-text"
                     >
-                      <option value="">Select budget range</option>
-                      <option value="< $5,000">Less than $5,000</option>
-                      <option value="$5,000 - $10,000">$5,000 - $10,000</option>
-                      <option value="$10,000 - $25,000">$10,000 - $25,000</option>
-                      <option value="$25,000 - $50,000">$25,000 - $50,000</option>
-                      <option value="$50,000+">$50,000+</option>
+                      <option value="" className="bg-navy-steel">Select budget range</option>
+                      <option value="< $5,000" className="bg-navy-steel">Less than $5,000</option>
+                      <option value="$5,000 - $10,000" className="bg-navy-steel">$5,000 - $10,000</option>
+                      <option value="$10,000 - $25,000" className="bg-navy-steel">$10,000 - $25,000</option>
+                      <option value="$25,000 - $50,000" className="bg-navy-steel">$25,000 - $50,000</option>
+                      <option value="$50,000+" className="bg-navy-steel">$50,000+</option>
                     </select>
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium mb-2">
+                    <label htmlFor="message" className="block text-sm font-medium mb-2 text-main-text">
                       Project Details *
                     </label>
                     <textarea
@@ -293,7 +293,7 @@ const Contact = () => {
                       onChange={handleChange}
                       required
                       rows={5}
-                      className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-navy-steel/50 border border-divider focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all resize-none text-main-text placeholder:text-muted-text"
                       placeholder="Tell us about your project..."
                     />
                   </div>
@@ -303,8 +303,8 @@ const Contact = () => {
                     disabled={isSubmitting || isSubmitted}
                     whileHover={{ scale: isSubmitting || isSubmitted ? 1 : 1.02 }}
                     whileTap={{ scale: isSubmitting || isSubmitted ? 1 : 0.98 }}
-                    className={`w-full btn-primary flex items-center justify-center gap-2 ${
-                      isSubmitted ? 'bg-green-500 hover:bg-green-500' : ''
+                    className={`w-full cyber-button flex items-center justify-center gap-2 ${
+                      isSubmitted ? 'bg-green-500 hover:bg-green-500 border-green-500' : ''
                     }`}
                   >
                     {isSubmitting ? (
