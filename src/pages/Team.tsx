@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { TeamCard } from '@/components/cards/TeamCard';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Target, Eye, Rocket } from 'lucide-react';
+import { CyberBackground } from '@/components/3d/CyberBackground';
 
 const founders = [
   {
@@ -76,41 +77,40 @@ const values = [
     icon: Target,
     title: 'Our Mission',
     description: 'To empower businesses with cutting-edge digital solutions that drive growth, enhance efficiency, and create lasting impact in the digital landscape.',
-    color: 'primary',
   },
   {
     icon: Eye,
     title: 'Our Vision',
     description: 'To be the global leader in digital innovation, setting new standards for excellence in web development, AI integration, and cybersecurity.',
-    color: 'secondary',
   },
   {
     icon: Rocket,
     title: 'Our Values',
     description: 'Innovation, integrity, and client success drive everything we do. We believe in transparent partnerships and delivering measurable results.',
-    color: 'accent',
   },
 ];
 
 const Team = () => {
   return (
     <main className="pt-24">
-      {/* Hero */}
-      <section className="section-padding relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none" />
+      {/* Hero with 3D Background */}
+      <section className="section-padding relative overflow-hidden min-h-[50vh] flex items-center">
+        <CyberBackground variant="minimal" />
         
-        <div className="container-custom relative">
+        <div className="container-custom relative z-10">
           <SectionHeading
             label="About Us"
-            title={<>Meet the <span className="gradient-text">Visionaries</span></>}
+            title={<>Meet the <span className="text-tech-blue">Visionaries</span></>}
             description="The passionate team behind AdhritVerse's digital innovations"
           />
         </div>
       </section>
 
       {/* Mission, Vision, Values */}
-      <section className="section-padding pt-0">
-        <div className="container-custom">
+      <section className="section-padding pt-0 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-navy-steel/30 pointer-events-none" />
+        
+        <div className="container-custom relative z-10">
           <div className="grid md:grid-cols-3 gap-6">
             {values.map((value, index) => (
               <motion.div
@@ -119,13 +119,13 @@ const Team = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="glass-card p-8 text-center"
+                className="cyber-glass p-8 text-center border border-silver/20 hover:border-tech-blue/50 transition-all duration-300"
               >
-                <div className={`w-16 h-16 rounded-2xl bg-${value.color}/10 flex items-center justify-center mx-auto mb-6`}>
-                  <value.icon className={`w-8 h-8 text-${value.color}`} />
+                <div className="w-16 h-16 rounded-2xl bg-tech-blue/10 flex items-center justify-center mx-auto mb-6 border border-tech-blue/20">
+                  <value.icon className="w-8 h-8 text-tech-blue" />
                 </div>
-                <h3 className="font-heading font-bold text-xl mb-4">{value.title}</h3>
-                <p className="text-muted-foreground">{value.description}</p>
+                <h3 className="font-heading font-bold text-xl mb-4 text-main-text">{value.title}</h3>
+                <p className="text-muted-text">{value.description}</p>
               </motion.div>
             ))}
           </div>
@@ -133,11 +133,13 @@ const Team = () => {
       </section>
 
       {/* Founders */}
-      <section className="section-padding">
-        <div className="container-custom">
+      <section className="section-padding relative">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(37,99,235,0.08)_0%,_transparent_70%)]" />
+        
+        <div className="container-custom relative z-10">
           <SectionHeading
             label="Leadership"
-            title={<>Our <span className="gradient-text">Founders</span></>}
+            title={<>Our <span className="text-tech-blue">Founders</span></>}
             description="The visionary leaders driving AdhritVerse's mission forward"
           />
 
@@ -150,11 +152,13 @@ const Team = () => {
       </section>
 
       {/* Team Members */}
-      <section className="section-padding bg-gradient-to-b from-background to-card/30">
-        <div className="container-custom">
+      <section className="section-padding relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-navy-steel/30 to-cyber-black pointer-events-none" />
+        
+        <div className="container-custom relative z-10">
           <SectionHeading
             label="The Team"
-            title={<>Expert <span className="gradient-text">Professionals</span></>}
+            title={<>Expert <span className="text-tech-blue">Professionals</span></>}
             description="A diverse team of specialists committed to excellence"
           />
 
@@ -167,13 +171,15 @@ const Team = () => {
       </section>
 
       {/* Stats */}
-      <section className="section-padding">
-        <div className="container-custom">
+      <section className="section-padding relative">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_rgba(0,179,255,0.08)_0%,_transparent_70%)]" />
+        
+        <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="glass-card p-10 md:p-16"
+            className="cyber-glass p-10 md:p-16 border border-silver/20"
           >
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {[
@@ -190,10 +196,10 @@ const Team = () => {
                   transition={{ delay: index * 0.1 }}
                   className="text-center"
                 >
-                  <div className="font-heading font-bold text-4xl md:text-5xl gradient-text mb-2">
+                  <div className="font-heading font-bold text-4xl md:text-5xl text-tech-blue mb-2">
                     {stat.value}
                   </div>
-                  <div className="text-muted-foreground">{stat.label}</div>
+                  <div className="text-muted-text">{stat.label}</div>
                 </motion.div>
               ))}
             </div>
