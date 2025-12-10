@@ -4,7 +4,6 @@ import { ProjectCard } from '@/components/cards/ProjectCard';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { X, ExternalLink, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { CyberBackground } from '@/components/3d/CyberBackground';
 
 const categories = ['All', 'Web Development', 'Mobile Apps', 'UI/UX Design', 'AI/ML', 'E-Commerce'];
 
@@ -109,14 +108,14 @@ const Projects = () => {
 
   return (
     <main className="pt-24">
-      {/* Hero with 3D Background */}
-      <section className="section-padding relative overflow-hidden min-h-[50vh] flex items-center">
-        <CyberBackground variant="grid" />
+      {/* Hero */}
+      <section className="section-padding relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none" />
         
-        <div className="container-custom relative z-10">
+        <div className="container-custom relative">
           <SectionHeading
             label="Portfolio"
-            title={<>Our <span className="text-tech-blue">Work</span> Speaks</>}
+            title={<>Our <span className="gradient-text">Work</span> Speaks</>}
             description="Explore our portfolio of successful projects across various industries"
           />
 
@@ -125,13 +124,13 @@ const Projects = () => {
             {categories.map((category) => (
               <motion.button
                 key={category}
-                whileHover={{ y: -2 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setActiveCategory(category)}
                 className={`px-5 py-2.5 rounded-lg font-medium transition-all ${
                   activeCategory === category
-                    ? 'bg-tech-blue text-white'
-                    : 'cyber-glass text-muted-text hover:text-main-text border border-silver/20'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'glass-card text-muted-foreground hover:text-foreground'
                 }`}
               >
                 {category}
@@ -142,10 +141,8 @@ const Projects = () => {
       </section>
 
       {/* Projects Grid */}
-      <section className="section-padding pt-0 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-steel/30 to-cyber-black pointer-events-none" />
-        
-        <div className="container-custom relative z-10">
+      <section className="section-padding pt-0">
+        <div className="container-custom">
           <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <AnimatePresence mode="popLayout">
               {filteredProjects.map((project) => (
@@ -175,14 +172,14 @@ const Projects = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-cyber-black/90 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm"
             onClick={() => setSelectedProject(null)}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="cyber-glass max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-silver/20"
+              className="glass-card max-w-3xl w-full max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Image */}
@@ -194,7 +191,7 @@ const Projects = () => {
                 />
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="absolute top-4 right-4 w-10 h-10 rounded-full cyber-glass flex items-center justify-center text-main-text hover:text-tech-blue transition-colors border border-silver/20"
+                  className="absolute top-4 right-4 w-10 h-10 rounded-full glass-card flex items-center justify-center text-foreground hover:text-primary transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -202,24 +199,24 @@ const Projects = () => {
 
               {/* Modal Content */}
               <div className="p-8">
-                <span className="text-tech-blue text-sm font-medium uppercase tracking-wider">
+                <span className="text-primary text-sm font-medium uppercase tracking-wider">
                   {selectedProject.category}
                 </span>
-                <h2 className="font-heading font-bold text-2xl md:text-3xl mt-2 mb-4 text-main-text">
+                <h2 className="font-heading font-bold text-2xl md:text-3xl mt-2 mb-4">
                   {selectedProject.title}
                 </h2>
-                <p className="text-muted-text mb-6">
+                <p className="text-muted-foreground mb-6">
                   {selectedProject.fullDescription}
                 </p>
 
                 {/* Tech Stack */}
                 <div className="mb-6">
-                  <h4 className="font-heading font-semibold mb-3 text-main-text">Technologies Used</h4>
+                  <h4 className="font-heading font-semibold mb-3">Technologies Used</h4>
                   <div className="flex flex-wrap gap-2">
                     {selectedProject.techStack.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 rounded-lg bg-tech-blue/10 text-tech-blue text-sm border border-tech-blue/20"
+                        className="px-3 py-1 rounded-lg bg-primary/10 text-primary text-sm"
                       >
                         {tech}
                       </span>
@@ -228,9 +225,9 @@ const Projects = () => {
                 </div>
 
                 {/* Outcome */}
-                <div className="cyber-glass p-4 mb-6 border border-cyber-neon/30">
-                  <h4 className="font-heading font-semibold mb-2 text-cyber-neon">Key Outcome</h4>
-                  <p className="text-main-text/80">{selectedProject.outcome}</p>
+                <div className="glass-card p-4 mb-6 neon-border-cyan">
+                  <h4 className="font-heading font-semibold mb-2 text-secondary">Key Outcome</h4>
+                  <p className="text-foreground/80">{selectedProject.outcome}</p>
                 </div>
 
                 {/* Actions */}
@@ -240,14 +237,14 @@ const Projects = () => {
                       href={selectedProject.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="cyber-button inline-flex items-center justify-center gap-2"
+                      className="btn-primary inline-flex items-center justify-center gap-2"
                     >
                       Visit Project <ExternalLink className="w-4 h-4" />
                     </a>
                   )}
                   <Link
                     to="/contact"
-                    className="px-6 py-3 rounded-lg border border-silver/30 text-main-text hover:bg-silver/10 transition-all inline-flex items-center justify-center gap-2"
+                    className="btn-secondary inline-flex items-center justify-center gap-2"
                   >
                     Start Similar Project <ArrowRight className="w-4 h-4" />
                   </Link>
@@ -259,23 +256,21 @@ const Projects = () => {
       </AnimatePresence>
 
       {/* CTA */}
-      <section className="section-padding relative">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_rgba(37,99,235,0.1)_0%,_transparent_70%)]" />
-        
-        <div className="container-custom relative z-10">
+      <section className="section-padding">
+        <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="cyber-glass p-10 md:p-16 text-center border border-silver/20"
+            className="glass-card p-10 md:p-16 text-center neon-border-purple"
           >
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6 text-main-text">
-              Have a <span className="text-tech-blue">Project</span> in Mind?
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">
+              Have a <span className="gradient-text">Project</span> in Mind?
             </h2>
-            <p className="text-muted-text text-lg max-w-2xl mx-auto mb-8">
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
               Let's discuss how we can bring your vision to life with our expertise and passion for excellence.
             </p>
-            <Link to="/contact" className="cyber-button inline-flex items-center gap-2">
+            <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
               Start Your Project <ArrowRight className="w-5 h-5" />
             </Link>
           </motion.div>
