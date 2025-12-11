@@ -13,43 +13,33 @@ import {
 } from 'lucide-react';
 import { HeroScene } from '@/components/3d/HeroScene';
 import { ServiceCard } from '@/components/cards/ServiceCard';
-import { PricingCard } from '@/components/cards/PricingCard';
 import { ProjectCard } from '@/components/cards/ProjectCard';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { useState } from 'react';
 import logo from '@/assets/adhritverse-logo.png';
 
 const services = [
-  { icon: Code2, title: 'Web Development', description: 'Custom web solutions built with cutting-edge technologies for exceptional performance and security.' },
-  { icon: Smartphone, title: 'App Development', description: 'Native and cross-platform mobile applications with enterprise-grade security.' },
-  { icon: Palette, title: 'UI/UX Design', description: 'User-centered design combining aesthetics with functionality for professional experiences.' },
-  { icon: Shield, title: 'Cybersecurity', description: 'Ethical hacking, penetration testing, and security audits to protect your digital assets.' },
-  { icon: Brain, title: 'AI/ML Integrations', description: 'Harness artificial intelligence to automate processes and gain competitive advantages.' },
-  { icon: Cloud, title: 'Cloud & DevOps', description: 'Scalable cloud infrastructure and CI/CD pipelines for rapid deployment cycles.' },
-];
-
-const pricingPlans = [
-  { name: 'Starter', price: { monthly: 2999, yearly: 2499 }, description: 'Perfect for startups', features: ['Up to 5 pages website', 'Responsive design', 'Basic SEO optimization', '1 month support', 'Source code delivery', '3 revision rounds'] },
-  { name: 'Growth', price: { monthly: 5999, yearly: 4999 }, description: 'Ideal for growing businesses', features: ['Unlimited pages', 'Custom web application', 'Advanced SEO & Analytics', '3 months support', 'API integrations', 'Performance optimization'], popular: true },
-  { name: 'Enterprise', price: { monthly: 12999, yearly: 10999 }, description: 'For large-scale operations', features: ['Full-stack development', 'Dedicated team', '24/7 priority support', 'Security audit included', 'Custom AI/ML features', 'Ongoing maintenance'] },
+  { icon: Code2, title: 'Web Development', description: 'High-performance, responsive, and SEO-optimized websites engineered for speed, security, and scalability.' },
+  { icon: Smartphone, title: 'App Development', description: 'Cross-platform mobile and web apps focused on performance, reliability, and future growth.' },
+  { icon: Palette, title: 'UI/UX Design', description: 'User-centric interface design that improves clarity, engagement, and conversions.' },
+  { icon: Shield, title: 'Ethical Hacking & Cybersecurity', description: 'Vulnerability assessments, penetration testing, and secure architecture design for robust protection.' },
+  { icon: Brain, title: 'AI / ML Integrations', description: 'Intelligent automation, predictive analytics, and AI-powered user experiences.' },
+  { icon: Cloud, title: 'Cloud & DevOps', description: 'Scalable infrastructure, CI/CD pipelines, and secure cloud deployment solutions.' },
 ];
 
 const featuredProjects = [
-  { title: 'FinTech Dashboard', category: 'Web Application', image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=450&fit=crop', techStack: ['React', 'TypeScript', 'D3.js', 'Node.js'], description: 'Real-time financial analytics platform with advanced data visualization.' },
-  { title: 'E-Commerce Platform', category: 'Full Stack', image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=450&fit=crop', techStack: ['Next.js', 'Stripe', 'PostgreSQL', 'AWS'], description: 'Scalable e-commerce with integrated payment processing.' },
-  { title: 'Healthcare App', category: 'Mobile Development', image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=450&fit=crop', techStack: ['React Native', 'Firebase', 'HIPAA', 'ML'], description: 'HIPAA-compliant healthcare application with telemedicine features.' },
+  { title: 'Ashielder', category: 'AI/ML Security', image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=450&fit=crop', techStack: ['Python', 'TensorFlow', 'NLP', 'React'], description: 'AI-powered phishing and scam detection system protecting users from cyber threats.' },
+  { title: 'Intelvia', category: 'EdTech Platform', image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=450&fit=crop', techStack: ['React', 'Node.js', 'WebRTC', 'PWA'], description: 'Low-internet-learning platform enabling quality education in bandwidth-constrained environments.' },
+  { title: 'Farmify', category: 'Marketplace', image: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=800&h=450&fit=crop', techStack: ['React', 'Node.js', 'MongoDB', 'Maps API'], description: 'Farmer-to-buyer marketplace connecting agricultural producers directly with consumers.' },
 ];
 
 const stats = [
-  { value: '150+', label: 'Projects Delivered' },
-  { value: '50+', label: 'Enterprise Clients' },
-  { value: '99.9%', label: 'Uptime Guarantee' },
-  { value: '24/7', label: 'Security Monitoring' },
+  { value: '15+', label: 'Hackathons' },
+  { value: '8', label: 'Wins' },
+  { value: '3', label: 'International Projects' },
+  { value: '24/7', label: 'Security Focus' },
 ];
 
 const Index = () => {
-  const [isYearly, setIsYearly] = useState(false);
-
   return (
     <main>
       {/* Hero Section */}
@@ -92,8 +82,8 @@ const Index = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl"
             >
-              Enterprise-grade digital solutions with cutting-edge security. From web applications 
-              to AI integrations, we deliver innovation that protects and accelerates your business.
+              AdhritVerse is a premium cyber and web innovation consultancy delivering secure, 
+              scalable, and high-performance digital solutions for startups and enterprises.
             </motion.p>
 
             <motion.div
@@ -147,29 +137,10 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Pricing Highlights */}
-      <section className="section-padding relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent pointer-events-none" />
-        <div className="container-custom relative">
-          <SectionHeading label="Pricing" title={<>Transparent <span className="gradient-text">Pricing</span></>} description="Choose the perfect plan for your project needs" />
-          <div className="flex justify-center mb-12">
-            <div className="cyber-card p-1.5 inline-flex gap-1 border-accent/20">
-              <button onClick={() => setIsYearly(false)} className={`px-6 py-2 rounded-lg font-medium transition-all ${!isYearly ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>Monthly</button>
-              <button onClick={() => setIsYearly(true)} className={`px-6 py-2 rounded-lg font-medium transition-all ${isYearly ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>Yearly <span className="ml-2 text-xs text-secondary">Save 15%</span></button>
-            </div>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            {pricingPlans.map((plan, index) => (
-              <PricingCard key={plan.name} {...plan} isYearly={isYearly} delay={index * 0.1} />
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Featured Projects */}
-      <section className="section-padding bg-gradient-to-b from-background to-card/30">
+      <section className="section-padding">
         <div className="container-custom">
-          <SectionHeading label="Portfolio" title={<>Featured <span className="gradient-text">Projects</span></>} description="Explore our recent enterprise solutions" />
+          <SectionHeading label="Portfolio" title={<>Featured <span className="gradient-text">Projects</span></>} description="Explore our innovative solutions across various domains" />
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredProjects.map((project, index) => (
               <motion.div key={project.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }}>
@@ -177,6 +148,11 @@ const Index = () => {
               </motion.div>
             ))}
           </div>
+          <motion.div initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mt-12">
+            <Link to="/projects" className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all">
+              View All Projects <ArrowRight className="w-4 h-4" />
+            </Link>
+          </motion.div>
         </div>
       </section>
 
@@ -185,7 +161,7 @@ const Index = () => {
         <div className="container-custom">
           <motion.div initial={{ opacity: 0, scale: 0.98 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="cyber-card p-10 md:p-16 text-center cyber-border-glow">
             <Shield className="w-16 h-16 mx-auto mb-6 text-primary" />
-            <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl mb-6">
+            <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl mb-6 text-foreground">
               Ready to <span className="gradient-text">Secure</span> Your Digital Future?
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-10">

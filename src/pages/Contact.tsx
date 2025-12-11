@@ -19,29 +19,26 @@ const contactInfo = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'hello@adhritverse.com',
-    href: 'mailto:hello@adhritverse.com',
-    color: 'primary',
+    value: 'hritikjaiswalgdg@gmail.com',
+    href: 'mailto:hritikjaiswalgdg@gmail.com',
   },
   {
     icon: Phone,
     label: 'Phone',
-    value: '+1 (234) 567-890',
-    href: 'tel:+1234567890',
-    color: 'secondary',
+    value: '+91 8462802086',
+    href: 'tel:+918462802086',
   },
   {
     icon: MapPin,
     label: 'Location',
-    value: 'San Francisco, CA',
+    value: 'India',
     href: '#',
-    color: 'accent',
   },
 ];
 
 const socialLinks = [
   { icon: Instagram, href: 'https://instagram.com/adhritverse', label: 'Instagram' },
-  { icon: Linkedin, href: 'https://linkedin.com/company/adhritverse', label: 'LinkedIn' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/hritik-jaiswal-piemr', label: 'LinkedIn' },
   { icon: Twitter, href: 'https://twitter.com/adhritverse', label: 'Twitter' },
   { icon: Github, href: 'https://github.com/adhritverse', label: 'GitHub' },
 ];
@@ -50,7 +47,7 @@ const services = [
   'Web Development',
   'App Development',
   'UI/UX Design',
-  'Cybersecurity',
+  'Ethical Hacking & Cybersecurity',
   'AI/ML Integration',
   'Cloud & DevOps',
   'Other',
@@ -62,7 +59,6 @@ const Contact = () => {
     email: '',
     company: '',
     service: '',
-    budget: '',
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -91,7 +87,6 @@ const Contact = () => {
         email: '',
         company: '',
         service: '',
-        budget: '',
         message: '',
       });
     }, 3000);
@@ -107,7 +102,7 @@ const Contact = () => {
           <SectionHeading
             label="Contact Us"
             title={<>Let's Start a <span className="gradient-text">Conversation</span></>}
-            description="Ready to transform your digital presence? We're here to help you succeed."
+            description="Ready to build secure, scalable digital solutions? We're here to help."
           />
         </div>
       </section>
@@ -127,10 +122,10 @@ const Contact = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="glass-card p-6 flex items-center gap-4 group hover:neon-border-purple transition-all duration-300 block"
+                  className="cyber-card p-6 flex items-center gap-4 group hover:border-primary/30 hover:cyber-glow transition-all duration-300 block border-accent/20"
                 >
-                  <div className={`w-14 h-14 rounded-xl bg-${info.color}/10 flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                    <info.icon className={`w-6 h-6 text-${info.color}`} />
+                  <div className="w-14 h-14 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <info.icon className="w-6 h-6 text-primary" />
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">{info.label}</p>
@@ -146,7 +141,7 @@ const Contact = () => {
                 viewport={{ once: true }}
                 className="pt-8"
               >
-                <h4 className="font-heading font-semibold text-lg mb-4">Follow Us</h4>
+                <h4 className="font-heading font-semibold text-lg mb-4 text-foreground">Follow Us</h4>
                 <div className="flex gap-3">
                   {socialLinks.map((social) => (
                     <motion.a
@@ -154,9 +149,9 @@ const Contact = () => {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1, y: -2 }}
+                      whileHover={{ y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      className="w-12 h-12 rounded-xl glass-card flex items-center justify-center text-muted-foreground hover:text-primary hover:neon-border-purple transition-all duration-300"
+                      className="w-12 h-12 rounded-xl cyber-card flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 hover:cyber-glow transition-all duration-300 border-accent/20"
                       aria-label={social.label}
                     >
                       <social.icon className="w-5 h-5" />
@@ -165,18 +160,17 @@ const Contact = () => {
                 </div>
               </motion.div>
 
-              {/* Business Hours */}
+              {/* Availability */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="glass-card p-6"
+                className="cyber-card p-6 border-accent/20"
               >
-                <h4 className="font-heading font-semibold text-lg mb-4">Business Hours</h4>
+                <h4 className="font-heading font-semibold text-lg mb-4 text-foreground">Availability</h4>
                 <div className="space-y-2 text-muted-foreground">
-                  <p>Monday - Friday: 9:00 AM - 6:00 PM PST</p>
-                  <p>Saturday: 10:00 AM - 2:00 PM PST</p>
-                  <p>Sunday: Closed</p>
+                  <p>Open to project inquiries and collaborations</p>
+                  <p>Response time: Within 24 hours</p>
                 </div>
               </motion.div>
             </div>
@@ -188,13 +182,13 @@ const Contact = () => {
               viewport={{ once: true }}
               className="lg:col-span-3"
             >
-              <div className="glass-card p-8 md:p-10">
-                <h3 className="font-heading font-bold text-2xl mb-6">Send us a Message</h3>
+              <div className="cyber-card p-8 md:p-10 border-accent/20">
+                <h3 className="font-heading font-bold text-2xl mb-6 text-foreground">Send us a Message</h3>
                 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium mb-2">
+                      <label htmlFor="name" className="block text-sm font-medium mb-2 text-foreground">
                         Full Name *
                       </label>
                       <input
@@ -204,12 +198,12 @@ const Contact = () => {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                        placeholder="John Doe"
+                        className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-foreground"
+                        placeholder="Your Name"
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium mb-2">
+                      <label htmlFor="email" className="block text-sm font-medium mb-2 text-foreground">
                         Email Address *
                       </label>
                       <input
@@ -219,16 +213,16 @@ const Contact = () => {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                        placeholder="john@example.com"
+                        className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-foreground"
+                        placeholder="your@email.com"
                       />
                     </div>
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="company" className="block text-sm font-medium mb-2">
-                        Company
+                      <label htmlFor="company" className="block text-sm font-medium mb-2 text-foreground">
+                        Company / Organization
                       </label>
                       <input
                         type="text"
@@ -236,12 +230,12 @@ const Contact = () => {
                         name="company"
                         value={formData.company}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                        className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-foreground"
                         placeholder="Your Company"
                       />
                     </div>
                     <div>
-                      <label htmlFor="service" className="block text-sm font-medium mb-2">
+                      <label htmlFor="service" className="block text-sm font-medium mb-2 text-foreground">
                         Service Interested In *
                       </label>
                       <select
@@ -250,7 +244,7 @@ const Contact = () => {
                         value={formData.service}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                        className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-foreground"
                       >
                         <option value="">Select a service</option>
                         {services.map((service) => (
@@ -263,27 +257,7 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <label htmlFor="budget" className="block text-sm font-medium mb-2">
-                      Budget Range
-                    </label>
-                    <select
-                      id="budget"
-                      name="budget"
-                      value={formData.budget}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                    >
-                      <option value="">Select budget range</option>
-                      <option value="< $5,000">Less than $5,000</option>
-                      <option value="$5,000 - $10,000">$5,000 - $10,000</option>
-                      <option value="$10,000 - $25,000">$10,000 - $25,000</option>
-                      <option value="$25,000 - $50,000">$25,000 - $50,000</option>
-                      <option value="$50,000+">$50,000+</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium mb-2">
+                    <label htmlFor="message" className="block text-sm font-medium mb-2 text-foreground">
                       Project Details *
                     </label>
                     <textarea
@@ -293,7 +267,7 @@ const Contact = () => {
                       onChange={handleChange}
                       required
                       rows={5}
-                      className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none text-foreground"
                       placeholder="Tell us about your project..."
                     />
                   </div>
