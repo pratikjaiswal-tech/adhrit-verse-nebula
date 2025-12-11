@@ -37,7 +37,7 @@ const footerLinks = {
 
 const socialLinks = [
   { icon: Instagram, href: 'https://instagram.com/adhritverse', label: 'Instagram' },
-  { icon: Linkedin, href: 'https://linkedin.com/company/adhritverse', label: 'LinkedIn' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/hritik-jaiswal-piemr', label: 'LinkedIn' },
   { icon: Twitter, href: 'https://twitter.com/adhritverse', label: 'Twitter' },
   { icon: Github, href: 'https://github.com/adhritverse', label: 'GitHub' },
 ];
@@ -61,29 +61,29 @@ export const Footer = () => {
               <span className="font-heading font-bold text-2xl text-accent">AdhritVerse</span>
             </Link>
             <p className="text-muted-foreground mb-6 max-w-sm">
-              Secure, Scalable, Future-ready Digital Solutions. We craft innovative 
-              web solutions with enterprise-grade security.
+              AdhritVerse is a premium cyber and web innovation consultancy delivering secure, 
+              scalable, and high-performance digital solutions.
             </p>
             
             {/* Contact Info */}
             <div className="space-y-3 mb-8">
               <a 
-                href="mailto:hello@adhritverse.com" 
+                href="mailto:hritikjaiswalgdg@gmail.com" 
                 className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
               >
                 <Mail className="w-5 h-5" />
-                <span>hello@adhritverse.com</span>
+                <span>hritikjaiswalgdg@gmail.com</span>
               </a>
               <a 
-                href="tel:+1234567890" 
+                href="tel:+918462802086" 
                 className="flex items-center gap-3 text-muted-foreground hover:text-secondary transition-colors"
               >
                 <Phone className="w-5 h-5" />
-                <span>+1 (234) 567-890</span>
+                <span>+91 8462802086</span>
               </a>
               <div className="flex items-center gap-3 text-muted-foreground">
                 <MapPin className="w-5 h-5" />
-                <span>San Francisco, CA</span>
+                <span>India</span>
               </div>
             </div>
             
