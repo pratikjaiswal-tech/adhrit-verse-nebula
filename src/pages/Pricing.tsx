@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { PricingCard } from '@/components/cards/PricingCard';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { Check, HelpCircle, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Check, HelpCircle } from 'lucide-react';
 
 const pricingPlans = [
   {
     name: 'Starter',
-    description: 'Perfect for small brands & startups',
+    price: { monthly: 2999, yearly: 2499 },
+    description: 'Perfect for startups and small projects',
     features: [
       'Up to 5 pages website',
       'Responsive design',
@@ -19,7 +20,8 @@ const pricingPlans = [
   },
   {
     name: 'Growth',
-    description: 'For scaling businesses and evolving platforms',
+    price: { monthly: 5999, yearly: 4999 },
+    description: 'Ideal for growing businesses',
     features: [
       'Unlimited pages',
       'Custom web application',
@@ -32,7 +34,8 @@ const pricingPlans = [
   },
   {
     name: 'Enterprise',
-    description: 'For large companies and mission-critical systems',
+    price: { monthly: 12999, yearly: 10999 },
+    description: 'For large-scale operations',
     features: [
       'Full-stack development',
       'Dedicated team',
@@ -46,8 +49,8 @@ const pricingPlans = [
 
 const faqs = [
   {
-    question: 'How do you determine project pricing?',
-    answer: 'We provide custom quotes based on your specific requirements, scope, timeline, and complexity. Contact us for a free consultation and detailed estimate.',
+    question: 'What is included in the project timeline?',
+    answer: 'Project timelines vary based on scope and complexity. Starter projects typically take 2-4 weeks, Growth projects 4-8 weeks, and Enterprise projects 8-16 weeks or more.',
   },
   {
     question: 'Do you offer payment plans?',
@@ -55,7 +58,7 @@ const faqs = [
   },
   {
     question: 'What happens after the support period ends?',
-    answer: 'After the initial support period, you can opt for our maintenance packages or choose ad-hoc support as needed. We ensure smooth handover and documentation.',
+    answer: 'After the initial support period, you can opt for our maintenance packages starting at $499/month, or choose ad-hoc support at hourly rates.',
   },
   {
     question: 'Can I upgrade my plan mid-project?',
@@ -67,7 +70,7 @@ const faqs = [
   },
   {
     question: 'What technologies do you specialize in?',
-    answer: 'We specialize in React, Next.js, Node.js, Python, AWS, and more. We choose the best technology stack based on your project requirements.',
+    answer: 'We specialize in modern web technologies including React, Next.js, Node.js, Python, AWS, and more. We choose the best stack for each project.',
   },
 ];
 
@@ -87,6 +90,7 @@ const comparisonFeatures = [
 ];
 
 const Pricing = () => {
+  const [isYearly, setIsYearly] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
@@ -99,78 +103,41 @@ const Pricing = () => {
           <SectionHeading
             label="Pricing"
             title={<>Transparent <span className="gradient-text">Pricing</span> for Every Need</>}
-            description="Tailored solutions that align with your project requirements and budget"
+            description="Choose the perfect plan that aligns with your project requirements and budget"
           />
+
+          {/* Toggle */}
+          <div className="flex justify-center mb-16">
+            <div className="glass-card p-1.5 inline-flex gap-1">
+              <button
+                onClick={() => setIsYearly(false)}
+                className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                  !isYearly ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                Monthly Billing
+              </button>
+              <button
+                onClick={() => setIsYearly(true)}
+                className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                  isYearly ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                Yearly Billing
+                <span className="ml-2 text-xs text-secondary font-bold">SAVE 15%</span>
+              </button>
+            </div>
+          </div>
 
           {/* Pricing Cards */}
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8 mb-24">
             {pricingPlans.map((plan, index) => (
-              <motion.div
+              <PricingCard
                 key={plan.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className={`relative ${plan.popular ? 'lg:-mt-4' : ''}`}
-              >
-                {/* Popular badge */}
-                {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-                    <span className="px-4 py-1.5 rounded-full text-sm font-semibold text-primary-foreground bg-gradient-to-r from-primary to-secondary">
-                      Most Popular
-                    </span>
-                  </div>
-                )}
-
-                <div
-                  className={`cyber-card p-8 h-full flex flex-col ${
-                    plan.popular
-                      ? 'cyber-border-glow border-primary/30'
-                      : 'border-accent/20 hover:border-primary/30 hover:cyber-glow'
-                  } transition-all duration-300`}
-                >
-                  {/* Header */}
-                  <div className="mb-8">
-                    <h3 className="font-heading font-bold text-2xl mb-2 text-foreground">{plan.name}</h3>
-                    <p className="text-muted-foreground text-sm">{plan.description}</p>
-                  </div>
-
-                  {/* Price */}
-                  <div className="mb-8">
-                    <p className="text-muted-foreground text-sm">Custom pricing based on requirements</p>
-                  </div>
-
-                  {/* Features */}
-                  <ul className="space-y-4 mb-8 flex-1">
-                    {plan.features.map((feature, featureIndex) => (
-                      <motion.li
-                        key={feature}
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: index * 0.1 + featureIndex * 0.08 }}
-                        className="flex items-start gap-3"
-                      >
-                        <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
-                          plan.popular ? 'bg-primary/20 border border-primary/30' : 'bg-secondary/15 border border-secondary/25'
-                        }`}>
-                          <Check className={`w-3 h-3 ${plan.popular ? 'text-primary' : 'text-secondary'}`} />
-                        </div>
-                        <span className="text-foreground/80">{feature}</span>
-                      </motion.li>
-                    ))}
-                  </ul>
-
-                  {/* CTA */}
-                  <Link
-                    to="/contact"
-                    className={plan.popular ? 'btn-primary text-center' : 'btn-secondary text-center'}
-                  >
-                    Request a Quote
-                  </Link>
-                </div>
-              </motion.div>
+                {...plan}
+                isYearly={isYearly}
+                delay={index * 0.1}
+              />
             ))}
           </div>
         </div>
@@ -188,16 +155,16 @@ const Pricing = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="cyber-card overflow-hidden border-accent/20"
+            className="glass-card overflow-hidden"
           >
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-border">
-                    <th className="text-left p-6 font-heading font-semibold text-foreground">Feature</th>
-                    <th className="text-center p-6 font-heading font-semibold text-foreground">Starter</th>
+                    <th className="text-left p-6 font-heading font-semibold">Feature</th>
+                    <th className="text-center p-6 font-heading font-semibold">Starter</th>
                     <th className="text-center p-6 font-heading font-semibold text-primary">Growth</th>
-                    <th className="text-center p-6 font-heading font-semibold text-foreground">Enterprise</th>
+                    <th className="text-center p-6 font-heading font-semibold">Enterprise</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -206,7 +173,7 @@ const Pricing = () => {
                       key={feature.name}
                       className={`border-b border-border/50 ${index % 2 === 0 ? 'bg-muted/20' : ''}`}
                     >
-                      <td className="p-6 font-medium text-foreground">{feature.name}</td>
+                      <td className="p-6 font-medium">{feature.name}</td>
                       <td className="p-6 text-center">
                         {typeof feature.starter === 'boolean' ? (
                           feature.starter ? (
@@ -232,12 +199,12 @@ const Pricing = () => {
                       <td className="p-6 text-center">
                         {typeof feature.enterprise === 'boolean' ? (
                           feature.enterprise ? (
-                            <Check className="w-5 h-5 text-secondary mx-auto" />
+                            <Check className="w-5 h-5 text-accent mx-auto" />
                           ) : (
                             <span className="text-muted-foreground">—</span>
                           )
                         ) : (
-                          <span className="text-secondary font-medium">{feature.enterprise}</span>
+                          <span className="text-accent font-medium">{feature.enterprise}</span>
                         )}
                       </td>
                     </tr>
@@ -266,13 +233,13 @@ const Pricing = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.05 }}
-                className="cyber-card overflow-hidden border-accent/20"
+                className="glass-card overflow-hidden"
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
                   className="w-full p-6 flex items-center justify-between text-left"
                 >
-                  <span className="font-heading font-semibold pr-8 text-foreground">{faq.question}</span>
+                  <span className="font-heading font-semibold pr-8">{faq.question}</span>
                   <HelpCircle
                     className={`w-5 h-5 flex-shrink-0 transition-transform ${
                       openFaq === index ? 'rotate-180 text-primary' : 'text-muted-foreground'
@@ -293,29 +260,6 @@ const Pricing = () => {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="section-padding">
-        <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="cyber-card p-10 md:p-16 text-center cyber-border-glow"
-          >
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6 text-foreground">
-              Ready to Get <span className="gradient-text">Started</span>?
-            </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
-              Contact us today for a free consultation and custom quote tailored to your project needs.
-            </p>
-            <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
-              Request a Quote
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </motion.div>
         </div>
       </section>
     </main>

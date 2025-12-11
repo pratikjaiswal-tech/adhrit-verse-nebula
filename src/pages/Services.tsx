@@ -17,7 +17,8 @@ const services = [
     id: 'web',
     icon: Code2,
     title: 'Web Development',
-    description: 'High-performance, responsive, and SEO-optimized websites engineered for speed, security, and scalability.',
+    description: 'Custom web solutions built with cutting-edge technologies that deliver exceptional performance and scalability.',
+    color: 'purple',
     features: [
       'Custom website development',
       'E-commerce solutions',
@@ -26,13 +27,14 @@ const services = [
       'Content Management Systems',
       'Performance optimization',
     ],
-    technologies: ['React', 'Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'MongoDB'],
+    technologies: ['React', 'Next.js', 'Vue.js', 'Node.js', 'PostgreSQL', 'MongoDB'],
   },
   {
     id: 'app',
     icon: Smartphone,
     title: 'App Development',
-    description: 'Cross-platform mobile and web apps focused on performance, reliability, and future growth.',
+    description: 'Native and cross-platform mobile applications that deliver exceptional user experiences across all devices.',
+    color: 'cyan',
     features: [
       'iOS native development',
       'Android native development',
@@ -47,7 +49,8 @@ const services = [
     id: 'uiux',
     icon: Palette,
     title: 'UI/UX Design',
-    description: 'User-centric interface design that improves clarity, engagement, and conversions.',
+    description: 'User-centered design that combines aesthetics with functionality to create memorable digital experiences.',
+    color: 'pink',
     features: [
       'User research & analysis',
       'Wireframing & prototyping',
@@ -61,8 +64,9 @@ const services = [
   {
     id: 'security',
     icon: Shield,
-    title: 'Ethical Hacking & Cybersecurity',
-    description: 'Vulnerability assessments, penetration testing, and secure architecture design for robust protection.',
+    title: 'Cybersecurity',
+    description: 'Ethical hacking, penetration testing, and security audits to protect your digital assets from evolving threats.',
+    color: 'purple',
     features: [
       'Penetration testing',
       'Vulnerability assessment',
@@ -76,8 +80,9 @@ const services = [
   {
     id: 'aiml',
     icon: Brain,
-    title: 'AI / ML Integrations',
-    description: 'Intelligent automation, predictive analytics, and AI-powered user experiences.',
+    title: 'AI/ML Integrations',
+    description: 'Harness the power of artificial intelligence to automate processes and gain competitive advantages.',
+    color: 'cyan',
     features: [
       'Machine learning models',
       'Natural language processing',
@@ -92,7 +97,8 @@ const services = [
     id: 'cloud',
     icon: Cloud,
     title: 'Cloud & DevOps',
-    description: 'Scalable infrastructure, CI/CD pipelines, and secure cloud deployment solutions.',
+    description: 'Scalable cloud infrastructure and CI/CD pipelines that accelerate your development and deployment cycles.',
+    color: 'pink',
     features: [
       'Cloud migration',
       'Infrastructure as Code',
@@ -105,6 +111,30 @@ const services = [
   },
 ];
 
+const colorStyles = {
+  purple: {
+    iconBg: 'from-primary/20 to-primary/5',
+    iconColor: 'text-primary',
+    tagBg: 'bg-primary/10 text-primary',
+    glow: 'neon-border-purple',
+    border: 'border-primary/20',
+  },
+  cyan: {
+    iconBg: 'from-secondary/20 to-secondary/5',
+    iconColor: 'text-secondary',
+    tagBg: 'bg-secondary/10 text-secondary',
+    glow: 'neon-border-cyan',
+    border: 'border-secondary/20',
+  },
+  pink: {
+    iconBg: 'from-accent/20 to-accent/5',
+    iconColor: 'text-accent',
+    tagBg: 'bg-accent/10 text-accent',
+    glow: 'neon-border-pink',
+    border: 'border-accent/20',
+  },
+};
+
 const Services = () => {
   return (
     <main className="pt-24">
@@ -116,7 +146,7 @@ const Services = () => {
           <SectionHeading
             label="Our Services"
             title={<>Comprehensive <span className="gradient-text">Digital Solutions</span></>}
-            description="Secure, scalable, and high-performance solutions for startups and enterprises"
+            description="From concept to deployment, we provide end-to-end services that transform your business"
           />
         </div>
       </section>
@@ -126,6 +156,7 @@ const Services = () => {
         <div className="container-custom">
           <div className="space-y-24">
             {services.map((service, index) => {
+              const styles = colorStyles[service.color as keyof typeof colorStyles];
               const isEven = index % 2 === 0;
 
               return (
@@ -142,11 +173,15 @@ const Services = () => {
                 >
                   {/* Content */}
                   <div className={isEven ? '' : 'lg:order-2'}>
-                    <div className="w-20 h-20 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-6">
-                      <service.icon className="w-10 h-10 text-primary" />
-                    </div>
+                    <motion.div
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.8 }}
+                      className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${styles.iconBg} flex items-center justify-center mb-6`}
+                    >
+                      <service.icon className={`w-10 h-10 ${styles.iconColor}`} />
+                    </motion.div>
 
-                    <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4 text-foreground">
+                    <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
                       {service.title}
                     </h2>
 
@@ -157,7 +192,7 @@ const Services = () => {
                     <ul className="space-y-3 mb-8">
                       {service.features.map((feature) => (
                         <li key={feature} className="flex items-center gap-3">
-                          <CheckCircle className="w-5 h-5 text-primary" />
+                          <CheckCircle className={`w-5 h-5 ${styles.iconColor}`} />
                           <span className="text-foreground/80">{feature}</span>
                         </li>
                       ))}
@@ -165,7 +200,7 @@ const Services = () => {
 
                     <Link
                       to="/contact"
-                      className="inline-flex items-center gap-2 text-primary font-medium group"
+                      className={`inline-flex items-center gap-2 ${styles.iconColor} font-medium group`}
                     >
                       Get Started
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -174,18 +209,18 @@ const Services = () => {
 
                   {/* Visual */}
                   <motion.div
-                    whileHover={{ y: -4 }}
+                    whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.3 }}
-                    className={`cyber-card p-8 border-accent/20 hover:border-primary/30 hover:cyber-glow transition-all duration-300 ${isEven ? 'lg:order-2' : ''}`}
+                    className={`glass-card p-8 ${styles.glow} ${isEven ? 'lg:order-2' : ''}`}
                   >
-                    <h4 className="font-heading font-semibold text-lg mb-6 text-foreground">
+                    <h4 className="font-heading font-semibold text-lg mb-6">
                       Technologies We Use
                     </h4>
                     <div className="flex flex-wrap gap-3">
                       {service.technologies.map((tech) => (
                         <span
                           key={tech}
-                          className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/20 text-primary text-sm font-medium"
+                          className={`px-4 py-2 rounded-lg ${styles.tagBg} text-sm font-medium`}
                         >
                           {tech}
                         </span>
@@ -206,9 +241,9 @@ const Services = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="cyber-card p-10 md:p-16 text-center cyber-border-glow"
+            className="glass-card p-10 md:p-16 text-center neon-border-purple"
           >
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6 text-foreground">
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">
               Need a <span className="gradient-text">Custom Solution</span>?
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">

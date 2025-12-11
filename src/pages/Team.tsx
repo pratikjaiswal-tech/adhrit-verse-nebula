@@ -1,48 +1,94 @@
 import { motion } from 'framer-motion';
+import { TeamCard } from '@/components/cards/TeamCard';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { Target, Eye, Rocket, Linkedin, Mail, Phone, Award, GraduationCap, Briefcase } from 'lucide-react';
+import { Target, Eye, Rocket } from 'lucide-react';
 
-const founder = {
-  name: 'Hritik Jaiswal',
-  role: 'Founder & CEO',
-  bio: 'Hritik Jaiswal is the Founder & CEO of AdhritVerse, a cybersecurity-driven technology entrepreneur and full-stack developer. With strong experience across web engineering, app development, AI/ML, and cybersecurity, he builds secure, scalable, and modern digital solutions. He has led and contributed to multiple national and international projects, including collaborations with Valencia University, Spain, and has won over 8 hackathons with more than 15 total participations.',
-  image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
-  socials: {
-    linkedin: 'https://www.linkedin.com/in/hritik-jaiswal-piemr',
-    email: 'hritikjaiswalgdg@gmail.com',
-    phone: '8462802086',
+const founders = [
+  {
+    name: 'Alex Chen',
+    role: 'CEO & Founder',
+    bio: 'Visionary tech leader with 15+ years of experience in digital transformation. Passionate about creating innovative solutions that drive business growth.',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face',
+    socials: {
+      linkedin: 'https://linkedin.com/in/alexchen',
+      twitter: 'https://twitter.com/alexchen',
+      github: 'https://github.com/alexchen',
+    },
   },
-  experience: [
-    { role: 'Frontend Intern', company: 'KlarviaTech, IIT Madras', period: '2025–Present' },
-    { role: 'Data Science Intern', company: 'Sabudh Foundation', period: '2025–Present' },
-    { role: 'Software Development Intern', company: 'UnizzTech', period: '2024–2025' },
-  ],
-  education: 'B.Tech CSE (IoT, Cybersecurity & Blockchain), PIEMR, RGPV (2023–2027)',
-  achievements: [
-    'Winner: VoidHacks 7.0',
-    'Finalist: Google Solution Challenge 2025',
-    '15+ Hackathons, 8 Wins',
-    'Sincere Student Award – PIEMR',
-    '3 Gold, 4 Silver, 1 Bronze (Tech/Sports)',
-    '3 International Projects – Valencia University',
-  ],
-};
+  {
+    name: 'Sarah Mitchell',
+    role: 'Co-Founder & CTO',
+    bio: 'Full-stack architect with deep expertise in scalable systems. Led engineering teams at Fortune 500 companies before co-founding AdhritVerse.',
+    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop&crop=face',
+    socials: {
+      linkedin: 'https://linkedin.com/in/sarahmitchell',
+      twitter: 'https://twitter.com/sarahmitchell',
+      github: 'https://github.com/sarahmitchell',
+    },
+  },
+];
+
+const team = [
+  {
+    name: 'David Park',
+    role: 'Lead Developer',
+    bio: 'Senior full-stack developer specializing in React and Node.js ecosystems.',
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop&crop=face',
+    socials: {
+      linkedin: 'https://linkedin.com/in/davidpark',
+      github: 'https://github.com/davidpark',
+    },
+  },
+  {
+    name: 'Emily Rodriguez',
+    role: 'Design Director',
+    bio: 'Award-winning UI/UX designer with a passion for creating intuitive experiences.',
+    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face',
+    socials: {
+      linkedin: 'https://linkedin.com/in/emilyrodriguez',
+      twitter: 'https://twitter.com/emilyrodriguez',
+    },
+  },
+  {
+    name: 'Michael Zhang',
+    role: 'Security Lead',
+    bio: 'Certified ethical hacker with expertise in penetration testing and security audits.',
+    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face',
+    socials: {
+      linkedin: 'https://linkedin.com/in/michaelzhang',
+      github: 'https://github.com/michaelzhang',
+    },
+  },
+  {
+    name: 'Priya Sharma',
+    role: 'AI/ML Engineer',
+    bio: 'Machine learning specialist focused on NLP and computer vision applications.',
+    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=300&fit=crop&crop=face',
+    socials: {
+      linkedin: 'https://linkedin.com/in/priyasharma',
+      github: 'https://github.com/priyasharma',
+    },
+  },
+];
 
 const values = [
   {
     icon: Target,
     title: 'Our Mission',
-    description: 'To deliver secure, scalable, and high-performance digital solutions that empower startups and enterprises to thrive in the digital age.',
+    description: 'To empower businesses with cutting-edge digital solutions that drive growth, enhance efficiency, and create lasting impact in the digital landscape.',
+    color: 'primary',
   },
   {
     icon: Eye,
     title: 'Our Vision',
-    description: 'To become a trusted global leader in cybersecurity-driven web and app development, setting new standards for innovation and security.',
+    description: 'To be the global leader in digital innovation, setting new standards for excellence in web development, AI integration, and cybersecurity.',
+    color: 'secondary',
   },
   {
     icon: Rocket,
     title: 'Our Values',
-    description: 'Security-first thinking, continuous innovation, transparent partnerships, and unwavering commitment to client success drive everything we build.',
+    description: 'Innovation, integrity, and client success drive everything we do. We believe in transparent partnerships and delivering measurable results.',
+    color: 'accent',
   },
 ];
 
@@ -56,8 +102,8 @@ const Team = () => {
         <div className="container-custom relative">
           <SectionHeading
             label="About Us"
-            title={<>Meet the <span className="gradient-text">Founder</span></>}
-            description="The visionary behind AdhritVerse's cyber and web innovations"
+            title={<>Meet the <span className="gradient-text">Visionaries</span></>}
+            description="The passionate team behind AdhritVerse's digital innovations"
           />
         </div>
       </section>
@@ -73,12 +119,12 @@ const Team = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="cyber-card p-8 text-center border-accent/20 hover:border-primary/30 hover:cyber-glow transition-all duration-300"
+                className="glass-card p-8 text-center"
               >
-                <div className="w-16 h-16 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-6">
-                  <value.icon className="w-8 h-8 text-primary" />
+                <div className={`w-16 h-16 rounded-2xl bg-${value.color}/10 flex items-center justify-center mx-auto mb-6`}>
+                  <value.icon className={`w-8 h-8 text-${value.color}`} />
                 </div>
-                <h3 className="font-heading font-bold text-xl mb-4 text-foreground">{value.title}</h3>
+                <h3 className="font-heading font-bold text-xl mb-4">{value.title}</h3>
                 <p className="text-muted-foreground">{value.description}</p>
               </motion.div>
             ))}
@@ -86,133 +132,37 @@ const Team = () => {
         </div>
       </section>
 
-      {/* Founder Profile */}
+      {/* Founders */}
       <section className="section-padding">
         <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="cyber-card p-8 md:p-12 cyber-border-glow"
-          >
-            <div className="grid lg:grid-cols-3 gap-12">
-              {/* Profile Image & Quick Info */}
-              <div className="lg:col-span-1">
-                <div className="relative mb-6">
-                  <div className="w-full aspect-square rounded-2xl overflow-hidden border-2 border-accent/30">
-                    <img
-                      src={founder.image}
-                      alt={founder.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  {/* Cyber glow overlay */}
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-primary/20 via-transparent to-transparent pointer-events-none" />
-                </div>
-                
-                <h2 className="font-heading font-bold text-2xl text-foreground mb-1">{founder.name}</h2>
-                <p className="text-primary font-medium mb-6">{founder.role}</p>
+          <SectionHeading
+            label="Leadership"
+            title={<>Our <span className="gradient-text">Founders</span></>}
+            description="The visionary leaders driving AdhritVerse's mission forward"
+          />
 
-                {/* Contact Links */}
-                <div className="space-y-3">
-                  <a
-                    href={founder.socials.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    <Linkedin className="w-5 h-5" />
-                    <span>LinkedIn Profile</span>
-                  </a>
-                  <a
-                    href={`mailto:${founder.socials.email}`}
-                    className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    <Mail className="w-5 h-5" />
-                    <span>{founder.socials.email}</span>
-                  </a>
-                  <a
-                    href={`tel:+91${founder.socials.phone}`}
-                    className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    <Phone className="w-5 h-5" />
-                    <span>+91 {founder.socials.phone}</span>
-                  </a>
-                </div>
-              </div>
-
-              {/* Bio & Details */}
-              <div className="lg:col-span-2 space-y-8">
-                <div>
-                  <p className="text-foreground/90 text-lg leading-relaxed">{founder.bio}</p>
-                </div>
-
-                {/* Experience */}
-                <div>
-                  <div className="flex items-center gap-2 mb-4">
-                    <Briefcase className="w-5 h-5 text-primary" />
-                    <h3 className="font-heading font-semibold text-lg text-foreground">Experience</h3>
-                  </div>
-                  <div className="space-y-3">
-                    {founder.experience.map((exp, index) => (
-                      <div key={index} className="cyber-card p-4 border-accent/20">
-                        <p className="font-medium text-foreground">{exp.role}</p>
-                        <p className="text-muted-foreground text-sm">{exp.company} • {exp.period}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Education */}
-                <div>
-                  <div className="flex items-center gap-2 mb-4">
-                    <GraduationCap className="w-5 h-5 text-primary" />
-                    <h3 className="font-heading font-semibold text-lg text-foreground">Education</h3>
-                  </div>
-                  <div className="cyber-card p-4 border-accent/20">
-                    <p className="text-foreground">{founder.education}</p>
-                  </div>
-                </div>
-
-                {/* Achievements */}
-                <div>
-                  <div className="flex items-center gap-2 mb-4">
-                    <Award className="w-5 h-5 text-primary" />
-                    <h3 className="font-heading font-semibold text-lg text-foreground">Achievements</h3>
-                  </div>
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    {founder.achievements.map((achievement, index) => (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: index * 0.05 }}
-                        className="cyber-card p-3 border-accent/20 text-sm text-foreground/80"
-                      >
-                        {achievement}
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {founders.map((founder, index) => (
+              <TeamCard key={founder.name} {...founder} delay={index * 0.1} />
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Co-Founder Section */}
-      <section className="section-padding pt-0">
+      {/* Team Members */}
+      <section className="section-padding bg-gradient-to-b from-background to-card/30">
         <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="cyber-card p-8 text-center border-accent/20"
-          >
-            <h3 className="font-heading font-bold text-xl mb-2 text-foreground">Co-Founder</h3>
-            <p className="text-muted-foreground">Coming Soon</p>
-          </motion.div>
+          <SectionHeading
+            label="The Team"
+            title={<>Expert <span className="gradient-text">Professionals</span></>}
+            description="A diverse team of specialists committed to excellence"
+          />
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {team.map((member, index) => (
+              <TeamCard key={member.name} {...member} delay={index * 0.1} />
+            ))}
+          </div>
         </div>
       </section>
 
@@ -223,14 +173,14 @@ const Team = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="cyber-card p-10 md:p-16 border-accent/20"
+            className="glass-card p-10 md:p-16"
           >
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {[
-                { value: '2024', label: 'Founded' },
-                { value: '15+', label: 'Hackathons' },
-                { value: '8', label: 'Wins' },
-                { value: '3', label: 'International Projects' },
+                { value: '2019', label: 'Founded' },
+                { value: '20+', label: 'Team Members' },
+                { value: '150+', label: 'Projects Delivered' },
+                { value: '15+', label: 'Countries Served' },
               ].map((stat, index) => (
                 <motion.div
                   key={stat.label}
